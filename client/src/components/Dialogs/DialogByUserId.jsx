@@ -12,7 +12,7 @@ import {userMessageSend } from '../../utils/API/connectDialogs'
 const DialogByUserIdMemo=({match,selectedUser,messages,profileImageSrc,publicName,onSelectedUser, getМessagesByUserId,getProfileByUserId,userMessageSend})=>{
   let messagesEnd = React.createRef()
   let [userId,setUserId]=useState(null)
- console.log(selectedUser,match.params.userId)
+//  console.log(selectedUser,match.params.userId)
  if (match.params.userId!==userId) setUserId(match.params.userId)
 
  useEffect(()=>{if(userId){
@@ -43,7 +43,7 @@ const DialogByUserId = React.memo(DialogByUserIdMemo)
 const MessageItem=(props)=>{
   const profileImageSrc=props.profileImageSrc
   let date=props.date.substr(0, 10)  
-  console.log('selectedUser=',props.selectedUser,'user=',props.user)
+  // consolegit.log('selectedUser=',props.selectedUser,'user=',props.user)
   return <div className={props.selectedUser===props.user?s.messagecard:s.messagecard2}>
 
  

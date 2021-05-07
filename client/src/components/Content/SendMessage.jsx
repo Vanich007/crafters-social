@@ -5,7 +5,7 @@ import {userMessageSend} from '../../utils/API/connectDialogs'
 
 
 export default function SendMessage({ userMessageSend, userId }) {
-  console.log('userId',userId)  
+  // console.log('userId',userId)  
   let inputRef = useRef(null)
       let previewRef = useRef(null)
    useEffect(() => {
@@ -94,7 +94,7 @@ function validFileType(file) {
 
   const handleSubmit = event => {
     event.preventDefault()
-    console.log('sendMessage userId=');
+    // console.log('sendMessage userId=');
       const formData = new FormData(); let image: File
       
     if (inputRef.current.files[0]) {
