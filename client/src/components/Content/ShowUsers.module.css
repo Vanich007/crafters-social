@@ -1,0 +1,44 @@
+.userwrapper{
+    display: block;
+}
+.user{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color:black;
+    background-color:#FFF;
+    padding: 5px 10px;
+    margin: 5px 10px 0px;
+    text-transform: uppercase;
+    align-items: center;
+     border-radius: 10px;
+     max-width: 700px;
+    
+}
+.avatarplace{
+    width:150px;
+    height: 150px;
+    display: flex;
+}
+.avatar{margin: auto;
+        border-radius: 32px;
+    
+        max-width: 150px;
+        max-height: 150px;
+}
+
+.klass{
+    display: block;
+    padding-left: 20px;
+    
+}
+.name {
+display: block;
+text-decoration: none;
+color: blue;
+}
+.name:hover{
+text-decoration: underline;    
+color: rgb(34, 34, 56);
+cursor: pointer;
+}

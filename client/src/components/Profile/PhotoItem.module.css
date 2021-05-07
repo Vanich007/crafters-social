@@ -1,0 +1,107 @@
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    max-width: 700px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 13px;
+	line-height: 18px;
+    color: #333;
+    
+	
+
+}
+
+
+.post{
+    font-family: "Helvetica Neue", Helvetica;
+    display:flex;
+    flex-direction: column;
+    align-items:stretch;
+    justify-content: space-between;
+    color:black;
+    background-color:#FFF;
+    padding: 5px 50px;
+    margin: 10px;
+   
+    border-radius: 10px;
+    
+    
+}
+.post_img{
+        border-radius: 2px;
+        margin-left: 10px;
+        width:auto;
+        height:auto;
+}
+
+.date{
+    display: block;
+    color:grey;
+    align: right;
+    
+}
+.post_body {
+display: block;
+text-decoration: none;
+color: blaCK;
+
+}
+.name hover{
+text-decoration: underline;    
+color: rgb(34, 34, 56);
+display: flex;
+flex-direction: column;
+justify-content: center;
+}
+.label{
+    font-size: 1em;
+    color: rgb(50, 52, 56);
+    text-transform:none;
+    font: lighter;
+    padding: 5px;
+}
+.user{
+    font-size: 1.2em;
+    color: rgb(68, 127, 238);
+    text-transform:none;
+    font: lighter;   
+    padding: 5px; 
+    align:left;
+}
+
+  .like__button{
+    background: #337ab7 no-repeat url('http://localhost:3000/images/like.png');
+    background-position: center;
+    padding:0 20px;
+    /* width: 50px; */
+    height: 30px;
+    color:#fff;
+    margin-left: 15px;
+  float:left;
+  opacity: .3;
+  }
+  .like__button_active{
+    background: #337ab7 no-repeat url('http://localhost:3000/images/like.png');
+    background-position: center;
+    padding:0 20px;
+    /* width: 50px; */
+    height: 30px;
+    color:#fff;
+    margin-left: 15px;
+  float:left;
+  opacity: 1;
+  }
+  .delete__button{
+    position: absolute;
+    right:0;
+    top:0;
+    background: #337ab7 no-repeat url('http://localhost:3000/images/delete.png');
+    background-position: center;
+    padding:0 20px;
+    /* width: 50px; */
+    height: 30px;
+    color:#fff;
+    margin-left: 15px;
+  float:left;
+  }

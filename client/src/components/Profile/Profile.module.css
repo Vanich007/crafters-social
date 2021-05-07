@@ -1,0 +1,29 @@
+.header{
+    display: flex;
+    flex-direction: row;
+    /* justify-content:start ; */
+    background-color:#fff;
+    color: #195588    ;
+    width: 100%;
+    font-size: large;
+    font-weight: bold;
+
+}
+.profile__top{
+  position: relative;
+}
+.add_post_button{
+  background: #337ab7 no-repeat url('http://localhost:3000/images/post_add.png');
+  background-position: center;
+  padding:0 20px;
+  width: 50px;
+  height: 50px;
+  color:#fff;
+  margin-left: 15px;
+float:left;
+border-radius: 25px;
+position: absolute;
+top: 20px;
+right:20px;
+
+}

@@ -1,0 +1,65 @@
+{
+  "users": [
+    {
+      "user": {
+        "username": "vanich777",
+        "password": "3",
+        "avatar": "",
+        "bio": ""
+      },
+      "id": 10,
+      "jwt": "aaaaaaa.bbbbbbbb.ccccccc"
+    },
+    {
+      "user": {
+        "username": "kozavka",
+        "password": "4",
+        "avatar": "5",
+        "bio": "6767"
+      },
+      "id": 11,
+      "jwt": "aaaa.bbbbbbbb.ccccccc"
+    },
+    {
+      "user": {
+        "username": "superman",
+        "password": "3"
+      },
+      "id": 12,
+      "jwt": "a.bbbbbbbb.ccccccc"
+    },
+    {
+      "user": {
+        "username": "tolik",
+        "password": "3"
+      },
+      "jwt": "12121212",
+      "id": 19
+    },
+    {
+      "user": {
+        "username": "4",
+        "password": "4",
+        "avatar": "",
+        "bio": ""
+      },
+      "id": 20
+    },
+    {
+      "user": {
+        "userName": "user",
+        "password": "user",
+        "bio": "677 "
+      },
+      "id": 21
+    },
+    {
+      "user": {
+        "username": "3",
+        "password": "3",
+        "bio": "23232"
+      },
+      "id": 22
+    }
+  ]
+}

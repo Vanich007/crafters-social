@@ -1,0 +1,22 @@
+
+.enterdata{
+padding:10px;
+  display: flex;
+flex-direction: row;
+justify-content: stretch;
+}
+.signinform{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0 10px;
+}
+
+.signinform textaria{
+  margin: 10px;
+}
+
+.nodisplay{
+  display:none;
+}

@@ -1,0 +1,13 @@
+Посты:
+
+router.get('/:id', passport.authenticate('jwt',{session:false}), controller.getPostById)  
+router.get('/', passport.authenticate('jwt',{session:false}), controller.getAllPosts)  
+router.delete('/:id', passport.authenticate('jwt',{session:false}),controller.remove)  
+router.post('/', passport.authenticate('jwt',{session:false}),upload.single('image'), controller.create)  
+router.patch('/:id', passport.authenticate('jwt',{session:false}),upload.single('image'), controller.update) 
+
+Авторизация:
+
+router.post('/login', controller.login)      //http://localhost:5000/api/auth/login
+
+router.post('/register', controller.register)   //http://localhost:5000/api/auth/register

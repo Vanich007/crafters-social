@@ -1,0 +1,23 @@
+.anketablock{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.line
+{
+  display:inline-block;
+  padding:10px;
+  
+}
+.profcol{
+display: flex;
+flex-direction: column;
+justify-content: flex-start;
+align-items: flex-start;
+}
+
+
+.nodisplay{
+  display:none;
+}

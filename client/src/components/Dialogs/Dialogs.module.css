@@ -1,0 +1,103 @@
+.dialogscroller{
+  overflow:auto;
+     height:80vh;
+     position:relative;
+}
+.dialogwrapper{
+  position:absolute;
+     top:0;
+}
+
+.messagecard{
+  display: flex;
+  flex-direction: row;
+  margin: 1rem auto;
+  margin-bottom: 1.6%;
+  background: #fff;
+  line-height: 1.4;
+  overflow: hidden;
+  z-index: 0;
+  padding: 5px;
+}
+.messagecard2{
+  display: flex;
+  flex-direction: row-reverse;
+  margin: 1rem auto;
+  margin-bottom: 1.6%;
+  background: #fff;
+  line-height: 1.4;
+  overflow: hidden;
+  z-index: 0;
+  padding: 5px;
+}
+.dialogitem{
+  display:flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding:10px;
+  color: #50B8E7;
+  box-shadow: 0 2px 5px 3px rgba(37, 52, 134, 0.2);
+}
+/* .usersList{
+    color:rgb(25, 25, 56);
+    background-color:#fff;
+    display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-self: center;
+   border-radius: 5px;
+   width: 100%;
+} */
+
+.message{
+  font-size: 1.2rem;
+}
+.messagearea{
+
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 10px;
+}
+.namemessage{
+    display: flex;
+  flex-direction: column;
+  align-items:flex-start ;
+  justify-content: space-between;
+}
+.date{
+color:#A1D3A2;
+font-size: 0.7rem;
+align-self: flex-start;
+padding: 5px;
+}
+.username{
+  font-size: 1.2rem;
+  color: #ED4337;
+}
+
+.user{
+  display: flex;
+  width:70px;
+  height:70px;
+}
+.user img{
+  margin:auto;
+  max-width: 140px;
+  max-height: 140px;
+}
+.avatarplace{
+  width:70px;
+  height: 70px;
+  display: flex;
+}
+.avatar{
+  margin: auto;
+      border-radius: 32px;
+  
+      max-width: 70px;
+      max-height: 70px;
+}
