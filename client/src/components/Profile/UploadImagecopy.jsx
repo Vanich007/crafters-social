@@ -11,7 +11,7 @@ export default class ImageUpload extends React.Component {
   _handleSubmit(e) {
     e.preventDefault();
     // TODO: do something with -> this.state.file
-    console.log('handle uploading-', this.state.file);
+    
    userPostSend(this.state.file)
     function userPostSend ( file) {
    
@@ -27,7 +27,7 @@ export default class ImageUpload extends React.Component {
     })
     .then(resp => resp.json())
     .then(data => {
-    console.log('userPostSend data=',data)
+    
     if (data.message) {
    
     //Тут прописываем логику

@@ -5,7 +5,7 @@ import {userMessageSend} from '../../utils/API/connectDialogs'
 
 
 export default function SendMessage({ userMessageSend, userId }) {
-  // console.log('userId',userId)  
+  
   let inputRef = useRef(null)
       let previewRef = useRef(null)
    useEffect(() => {
@@ -94,7 +94,7 @@ function validFileType(file) {
 
   const handleSubmit = event => {
     event.preventDefault()
-    // console.log('sendMessage userId=');
+    
       const formData = new FormData(); let image: File
       
     if (inputRef.current.files[0]) {
@@ -111,17 +111,15 @@ function validFileType(file) {
 
 
   
-    return <div className={s.signinform}>
-      <h1>Отправить сообщение:</h1>
+    return <div className={s.previewComponent}>
              <form method="post" encType="multipart/form-data" onSubmit={(e)=>handleSubmit(e)}>
   <div>
-            <label className="btn btn-primary" htmlFor="image_uploads">Выберите картинки для загрузки (PNG, JPG)</label>
+  <label className={s.button__image_upload} title="Выберите картинку для загрузки (PNG, JPG)" htmlFor="image_uploads"></label>
           <input type="file" id="image_uploads" name="image_uploads" accept=".jpg, .jpeg, .png" />
-          {//multiple
-          }
+       
   </div>
   <div className="preview">
-    <p>Файлы для загрузки не выбраны</p>
+    
   </div>
   
         

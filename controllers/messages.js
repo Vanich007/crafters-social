@@ -8,7 +8,6 @@ const ObjectId = require('mongodb').ObjectId;
 module.exports.create = async function (req, res) {
     var newmessage=null
     const targetid = req.params.targetUserId
-    console.log(`Create message from user id=${req.user.id} to ${targetid}, messageBody=${req.body.messageBody}`)
     try {
         newmessage =  new Message({
             user:req.user.id,
@@ -41,7 +40,6 @@ module.exports.getMessageById = async function (req, res) {
         Id:o_messageId
         })
         res.status(200).json(message)
-        console.log('message userId='+userId+' rez= ',message);
         
     } catch (e) {
         errorHandler(res,e)
@@ -49,9 +47,8 @@ module.exports.getMessageById = async function (req, res) {
 }
 
 module.exports.getMessagesByUserId = async function (req, res) {
-    const targetId = req.params.userId
+    const targetId = req.query.userId
     const userId=req.user.id
-    console.log('messages=',targetId,'-',userId)
     
     
     try {  let o_id = new ObjectId(userId);
@@ -59,7 +56,9 @@ module.exports.getMessagesByUserId = async function (req, res) {
         const messages = await Message.find({    //req.params.id - id страницы со списком сообщений
             $or:[{user: o_id,targetUser:target_id},
         {user: target_id,targetUser:o_id}]
-        })
+        }).sort({ date: -1 })
+        .skip(+req.query.offset)
+        .limit(+req.query.limit)
         res.status(200).json(messages)
         
         
@@ -105,7 +104,7 @@ module.exports.getMessagesByUserId = async function (req, res) {
 module.exports.remove = async function (req, res) {
     try {
         await Message.remove({ _id: req.params.id })
-         res.status(200).json({message:'Сообщение удалено'})
+         res.status(200).json({deleted:req.params.id})
         
     } catch (e) {
         errorHandler(res,e)
@@ -134,7 +133,6 @@ module.exports.update=async function(req, res) {
 let dialogCreate = async function (message) {
     let {user,targetUser,messageBody}=message
     //const targetid = req.params.targetUserId
-    console.log(`Create dialog from user id=${user} to ${targetUser}, messageBody=${messageBody}`)
     try {
         const newdialog =  new Dialogs({
             user,
@@ -142,8 +140,7 @@ let dialogCreate = async function (message) {
             lastMessage:message.messageBody,
         })
             await newdialog.save()
-            console.log('dialog created')
-            console.log(newdialog)
+
     } catch (e) {
         console.error(e)
     }
@@ -163,8 +160,6 @@ let dialogUpdate = async function (dialogId,message) {
             {$set: updated},
             {new: true}
           )
-        //   console.log('dialog updated')
-        //   console.log(updDialog)
      
 } catch (e) {
     console.error(e)

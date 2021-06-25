@@ -22,7 +22,11 @@ export function ProfileAnketa({getProfileByUserId,userProfileSend,currentUser, p
   let [statusIsEditing, setStatusIsEditing] = useState(false)
   let [LivingPlaceIsEditing, setLivingPlaceIsEditing] = useState(false)
   let [publicNameIsEditing, setPublicNameIsEditing] = useState(false)
+  
 
+  useEffect(() => { if (publicNameIsEditing) { document.getElementById('publicName').focus() } }, [publicNameIsEditing])
+  useEffect(() => { if (LivingPlaceIsEditing) { document.getElementById('livingPlace').focus() } }, [LivingPlaceIsEditing])
+  useEffect(() => { if (statusIsEditing) { document.getElementById('status').focus() }},[statusIsEditing])
   useEffect(()=>setStatusState(status),[status])
   useEffect(()=>setLivingPlaceState(livingPlace),[livingPlace])
   useEffect(()=>setPublicNameState(publicName),[publicName])
@@ -57,7 +61,7 @@ export function ProfileAnketa({getProfileByUserId,userProfileSend,currentUser, p
   userProfileSend(formData)
   }
 
-if(!profileImageSrc){profileImageSrc= 'uploads/images/guestavatar.gif'}
+if(!profileImageSrc){profileImageSrc= '/uploads/images/guestavatar.gif'}
 
 const onAddProfilePhoto=(filename)=>{
 const formData = new FormData();
@@ -69,34 +73,24 @@ formData.append('image', image, image.name)
     formData.append('publicName', publicNameState)
 userProfileSend(formData)
   }
-
-  //console.log('statusState='+statusState)
+function publicNameClick() { setPublicNameIsEditing(true) }
+  
   return (
     <div className={s.anketablock}>
    
     <div className="vertical">
       <div className={s.avatarplace}>       
-      {/* <img src={window.location.origin + "/" + (profileImageSrc?profileImageSrc:'uploads/images/guestavatar.gif')} className={s.avatar}></img> */}
-      
-    {/* {(profileImageSrc)?<img src={window.location.origin + "\\" +profileImageSrc}></img>:<img src={process.env.PUBLIC_URL + 'uploads/images/guestavatar.gif'} className={s.avatar}></img>} */}
-    
-           {/* {changeAvatar ? ( */}
-          {/* //  <Modal active={modalActive} setActive={setModalActive} setFalseAfter={toggleChangeAvatar}> */}
-        {/* <UploadImage userProfileSend={userProfileSend} profileId={profileId} currentUser={currentUser} status={ statusState}
-      livingPlace={livingPlaceState} 
-      publicName={publicNameState} /> */}
+     
       <ImageUpload imgSrc={profileImageSrc} onAddProfilePhoto={onAddProfilePhoto} />
       </div> 
-        {/* // </Modal> */}
-      {/* ) : (
-        <button onClick={() => toggleChangeAvatar(!changeAvatar)}>Изменить аватар</button>
-      )} */}
+    
     </div>
     <div className="vertical">
     {statusIsEditing ? (<div className={s.enterdata}>
       <label>Статус </label>
       <input
-        name='status'
+            name='status'
+            id='status'
         placeholder='Статус'
         value={statusState}
         onChange={handleChange}
@@ -109,7 +103,8 @@ userProfileSend(formData)
        {LivingPlaceIsEditing ? (<div className={s.enterdata}>
         <label>Место жительства</label>
         <input
-          name='livingPlace'
+            name='livingPlace'
+            id='livingPlace'
           placeholder='Место жительства'
           value={livingPlaceState}
         onChange={handleChange}
@@ -122,13 +117,14 @@ userProfileSend(formData)
       {publicNameIsEditing ? (<div className={s.enterdata}>
         <label>Имя пользователя</label>
         <input
-          name='publicName'
+            name='publicName'
+            id='publicName'
           placeholder='Имя пользователя'
           value={publicNameState}
           onChange={handleChange}
          onBlur={()=>Blur('publicName')}
           />
-    </div >) : (<div className={s.show} onClick={() => setPublicNameIsEditing(true)}>
+        </div >) : (<div className={s.show} onClick={publicNameClick}>
          <label>Имя пользователя </label><b>{publicNameState}</b></div>
         )}
       </div>

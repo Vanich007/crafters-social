@@ -12,7 +12,7 @@ export function userMessageSend(file,userId) {
     })
       .then(resp => resp.json())
       .then(data => {
-        //console.log('updProfile data=',data)
+       
         if (data.message) {
           console.error(data.message)
           //Тут прописываем логику
@@ -36,7 +36,7 @@ export function userMessageSend(file,userId) {
       })
         .then(resp => resp.json())
         .then(data => {
-          console.log('getDialogsByUserId data=',data)
+          
           if (data.message) {
             
             console.error(data.message)
@@ -49,7 +49,7 @@ export function userMessageSend(file,userId) {
 
 export function getМessagesByUserId  (targetUserId) {   //сообщения по targetUser
   return dispatch => {
-    const url='http://localhost:5000/api/messages/'+targetUserId
+    const url=`http://localhost:5000/api/messages/?userId=${targetUserId}`
     return fetch(url, {
       method: "GET",
       headers: {
@@ -59,7 +59,7 @@ export function getМessagesByUserId  (targetUserId) {   //сообщения п
     })
       .then(resp => resp.json())
       .then(data => {
-        console.log('getMessagesByUserId data=',data)
+      
         if (data.message) {
           
           console.error(data.message)
@@ -70,34 +70,34 @@ export function getМessagesByUserId  (targetUserId) {   //сообщения п
     }
 }
 
-export function getMessageByMessageId  (id) {
-  return dispatch => {
-    const url='http://localhost:5000/api/messages/'+id
-    return fetch(url, {
-      method: "GET",
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization':localStorage.token
-     }
-    })
-      .then(resp => resp.json())
-      .then(data => {
-        console.log('getMessageByMessageId data=',data)
-        if (data.message) {
+// export function getMessageByMessageId  (id) {
+//   return dispatch => {
+//     const url=`http://localhost:5000/api/messages/?userId=${id}`
+//     return fetch(url, {
+//       method: "GET",
+//       headers: {
+//         'Content-Type': 'application/json',
+//         'Authorization':localStorage.token
+//      }
+//     })
+//       .then(resp => resp.json())
+//       .then(data => {
+       
+//         if (data.message) {
           
-          console.error(data.message)
-        } else {
-          dispatch(onGetDialogs(data))
-        }
-      })
-    }
-}   
+//           console.error(data.message)
+//         } else {
+//           dispatch(onGetDialogs(data))
+//         }
+//       })
+//     }
+// }   
    
    
   export const deletePhotoById = photoId => {
     return dispatch => {
       let url=  "http://localhost:5000/api/photo/"+photoId
-      //console.log('url='+url)
+      
       return fetch(url, {
         method: "DELETE",
         headers: {
@@ -107,12 +107,12 @@ export function getMessageByMessageId  (id) {
       })
         .then(resp => resp.json())
         .then(data => {
-          console.log('delete data=',data)
+          
           if (data.message='Сообщение удалено') {
             dispatch(onDeleteMessageById(photoId))
             console.error(data.message)
           } else {
-            //console.log('returned photos id='+data._id)
+          
            
        
           }

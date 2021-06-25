@@ -1,3 +1,19 @@
 .nodisplay{
     display:none;
 }
+.navigation{
+    font-size: 18px;
+    
+}
+.navigation a{
+    text-decoration: none;
+    transition: .5s;
+  
+}
+ 
+
+.navigation a:hover{
+    text-decoration: none;
+    opacity: 0.4;
+
+}

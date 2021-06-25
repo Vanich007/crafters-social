@@ -12,7 +12,7 @@ const tagsReducer=(state = defaultstate, action)=>{
     switch (action.type){
         case GOTSEARCHEDTAGS:  //для отображения в поиске
             newState.tags=action.tags.map(item=>item.tagBody)
-            //console.log('newState.users'+newState.users)
+           
         return newState
     case ADDTAG:
         newState.tags=[...state.tags,action.tag.tagBody]

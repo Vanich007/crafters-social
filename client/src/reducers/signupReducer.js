@@ -1,6 +1,6 @@
 import { getProfileByUserId } from '../utils/API/connectProfile' 
 const initialState = {
-  currentUser: {_id:'605b733f6fd9cf1bc86adb90'},
+  currentUser: {_id:null},
   hasProfile:false
 }
 
@@ -29,7 +29,7 @@ export const userPostFetch = user => {
     })
       .then(resp => resp.json())
       .then(data => {
-        console.log(data)
+        
         if (data.message) {
           
           //Тут прописываем логику
@@ -63,7 +63,7 @@ export const userLoginFetch = user => {
     })
       .then(resp => resp.json())
       .then(data => {
-       // console.log('data=',data)
+       
         if (data.message) {
          //тут ваша логика
         } else {
@@ -89,14 +89,14 @@ export const getProfileFetch = () => {
       })
         .then(resp => resp.json())
         .then(data => {
-          //console.log('логин по jwt data='+data)
+          
           if (data.message) {
             console.error(data.message)
             // Будет ошибка если token не дествительный
             localStorage.removeItem("token")
             dispatch(logoutUser())
           } else {
-          // console.log(data.user)
+          
             dispatch(loginUser(data.user))
             getProfileByUserId(data.user._id)
             

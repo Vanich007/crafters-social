@@ -9,9 +9,8 @@ export function loadSelectedProfile(userId) {
  
   export const getSelectedUserProfileByUserId = userId => {
     return dispatch => {
-      if (userId===undefined) return null
+      if (userId===undefined||userId===null) return null
       let url=  "http://localhost:5000/api/profile/"+userId
-      console.log('url='+url)
       return fetch(url, {
         method: "GET",
         headers: {
@@ -22,12 +21,11 @@ export function loadSelectedProfile(userId) {
       })
         .then(resp => resp.json())
         .then(data => {
-          console.log('getProfileByUserId data=',data)
+          if(!data)return null
           if (data.message) {
             
             console.error(data.message)
           } else {
-            console.log('returned profile id='+data._id)
            dispatch(onGetSelectedUserProfile(data))
            getSelectedUserPostsByUserId(data.user)
           }
@@ -37,8 +35,7 @@ export function loadSelectedProfile(userId) {
   
 export const getSelectedUserPostsByUserId = userId => {
     return dispatch => {
-      let url=  "http://localhost:5000/api/posts/"+userId
-      console.log('url='+url)
+      let url=  `http://localhost:5000/api/posts/?userId=${userId}&limit=50&offset=0`
       return fetch(url, {
         method: "GET",
         headers: {
@@ -49,7 +46,6 @@ export const getSelectedUserPostsByUserId = userId => {
       })
         .then(resp => resp.json())
         .then(data => {
-          console.log('userPostSend data=',data)
           if (data.message) {
             
             console.error(data.message)
@@ -62,8 +58,7 @@ export const getSelectedUserPostsByUserId = userId => {
 
   export const getSelectedUserPhotoByUserId = userId => {
     return dispatch => {
-      let url=  "http://localhost:5000/api/photo/"+userId
-      console.log('url='+url)
+      let url=   `http://localhost:5000/api/photo/?userId=${userId}`
       return fetch(url, {
         method: "GET",
         headers: {
@@ -73,12 +68,10 @@ export const getSelectedUserPostsByUserId = userId => {
       })
         .then(resp => resp.json())
         .then(data => {
-          console.log('getPhoto data=',data)
           if (data.message) {
             
             console.error(data.message)
           } else {
-            //console.log('returned photos id='+data._id)
            dispatch(onGetSelectedUserPhoto(data))
        
           }

@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import s from './Header.module.css';
-import Login from '../Nav/Login';
+// import Login from '../Nav/Login';
 
 
 function Header({  currentUser, ...props }) {
@@ -13,7 +12,9 @@ function Header({  currentUser, ...props }) {
       <header id="header">
       <div className="container">
         
-
+        <a href="/" id="logo">
+          <h1>CraftTerritory</h1></a>
+        
           <div className="btn-toolbar btn-group-sm pull-right">
             
             
@@ -50,7 +51,7 @@ function Header({  currentUser, ...props }) {
               {/* <div className={(currentUser.username ? s.nodisplay : "")}>
         <Login userLoginFetch={props.userLoginFetch}/>
       </div> */}
-      <div className={(currentUser.username ? "":s.nodisplay )}>
+      <div className={(currentUser.username ? "":'nodisplay' )}>
        Пользователь: {currentUser.username}
         <button onClick={GoLogout}>Logout</button></div>
                 
@@ -62,17 +63,16 @@ function Header({  currentUser, ...props }) {
 
         
 
-        <a href="#nav" className="btn btn-primary btn-sm pull-right collapsed" data-toggle="collapse"><span className="glyphicon glyphicon-menu-hamburger"></span></a>
-        <a href="/" id="logo"></a>
-        <h1>CraftTerritory</h1>
+        {/* <a href="#nav" className="btn btn-primary btn-sm pull-right collapsed" data-toggle="collapse"><span className="glyphicon glyphicon-menu-hamburger"></span></a> */}
+ 
       </div>
-
+ 
 
     </header>
-       <div className="menu-container">
+     <div className="menu-container">
   <nav>
     <ul>
-      <li><Link to='/dialogs/'>Сообщения</Link></li>
+      <li><Link to='/lenta/'>Лента</Link></li>
       <li><Link to='/profile/'>Профиль</Link></li>
       <li><Link to='/gallery/'>Галерея</Link></li>
       <li><Link to='/users/'>Пользователи</Link></li>

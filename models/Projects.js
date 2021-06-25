@@ -6,6 +6,7 @@ const projectsSchema = new Schema({
     projectBody: { type: String, defaulf: '' },
     projectTitle: { type: String, defaulf: '' },
     projectPosts:[{ref: 'posts', type:Schema.Types.ObjectId}],
+    projectTags:[{ type: String, defaulf: '' }],
     projectImageSrc: { type: String, defaulf: '' },
     likes: [
         {ref: 'users', type:Schema.Types.ObjectId}

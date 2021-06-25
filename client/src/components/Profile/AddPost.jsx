@@ -16,10 +16,12 @@ export function AddPost(props) {
   let [insertTagState, setInsertTag] = useState(false)
    
   let [postBodyState, SetPostBodyState] = useState('')
-  if (props.postBody&&props.postBody!==postBodyState) SetPostBodyState(props.postBody)
+  
   let [postTitleState, SetPostTitleState] = useState('')
-  if (props.postTitle&&props.postTitle!==postTitleState) SetPostTitleState(props.postTitle)
-
+  useState(() => {
+    if (props.postTitle && props.postTitle !== postTitleState) SetPostTitleState(props.postTitle)
+    if (props.postBody && props.postBody !== postBodyState) SetPostBodyState(props.postBody)
+  },[])
   
   const handleChange = event => {
     switch (event.target.name) {
@@ -30,8 +32,7 @@ export function AddPost(props) {
 
   const handleSubmit = event => {
     event.preventDefault()
-    //console.log('sendUserPost');
-    //props.sendUserPost({ : , :  })
+   
 
     const formData = new FormData(); 
     
@@ -44,7 +45,7 @@ export function AddPost(props) {
     formData.append('postBody', postBodyState)
     formData.append('postTitle', postTitleState)
     formData.append('postTags', tags.join('|'))
-    
+   
     if (props.postId) { props.updateUserPost(props.postId, formData) }
     else { props.sendUserPost(formData) }
     
@@ -78,21 +79,10 @@ export function AddPost(props) {
       <div className="horizontal">
 
       <div>
-          {/* {changePostImage ?'': <img src={window.location.origin + "/" + (props.postImageSrc ? props.postImageSrc : 'uploads/images/guestavatar.gif')} className={s.avatar}></img>}
-          {changePostImage ? */}
             <PostImageUpload imgSrc={props.postImageSrc} onAddPostPhoto={props.onAddPostPhoto} />
-        {/* //     : (
-        // <button title="Изменить картинку" className="edit__button" onClick={() => togglePostImage(!changePostImage)}></button>
-        // )} */}
-       </div> 
-        {/* {changeAvatar?(<UploadImage userProfileSend={userProfileSend} profileId={profileId} currentUser={currentUser} status={ statusState}
-      livingPlace={livingPlaceState} 
-      publicName={publicNameState} />):''}
-
-    {(profileImageSrc)?<img src={profileImageSrc}></img>:''}
-    <button onClick={()=>toggleChangeAvatar(!changeAvatar)}>Добавить картинку</button>
         
-       */}
+       </div> 
+        
 <div>
       <div className={s.enterdata}>
           <div className="vertical">
@@ -125,7 +115,8 @@ export function AddPost(props) {
       <div className="down_buttons">
       <div className={ s.tags}>{tags}
         {insertTagState ? (
-        <InsertTag tags={props.tags} saveTag={props.saveTag} onSelectTag={props.onSelectTag} selectedTags={props.selectedTags }/>
+        <InsertTag tags={props.tags} saveTag={props.saveTag} 
+        onSelectTag={props.onSelectTag} selectedTags={props.selectedTags }/>
        
       ) : (
             <button className="add__button" title="Добавить тэги" onClick={()=>{setInsertTag(true)}}></button>
@@ -148,11 +139,15 @@ const InsertTag = (props) => {
 
   const handleSubmit = event => {
     event.preventDefault()
-    //console.log('sendUserTags');
+    
 const tags=props.tags.filter((item)=>item===tagState)
     if (tags.length) { props.onSelectTag(tags[0]) }
-    else {props.saveTag(tagState)
-      
+    else {
+      const formData = new FormData(); 
+      formData.append('tagBody', tagState)
+     
+      props.saveTag(formData)
+      props.onSelectTag(tagState)
     }
     SetTagState('')
     

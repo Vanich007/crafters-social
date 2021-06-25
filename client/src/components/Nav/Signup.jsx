@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import { userPostFetch } from '../../reducers/signupReducer';
 import s from './Signup.module.css'
+import {Redirect} from 'react-router-dom'
 
 function Signup (props){
   let [usernameState, SetUsernameState] = useState('')
@@ -25,7 +26,7 @@ function Signup (props){
   }
 
       if (props.currentUser.username) return (
-      <h3>Вы уже зарегистрированы</h3>
+      <Redirect to="/lenta/" />
     ) 
     return (
       <form onSubmit={handleSubmit}>
@@ -34,7 +35,7 @@ function Signup (props){
         <div className={s.signinform}>
         
         <div className={s.enterdata}>
-        <label>Email</label>
+        {/* <label>Email</label> */}
         <input
           name='email'
               placeholder='Email'
@@ -46,7 +47,7 @@ function Signup (props){
           </div >
 
         <div className={s.enterdata}>
-        <label>Имя пользователя</label>
+        {/* <label>Имя пользователя</label> */}
         <input
               name='username'
                
@@ -57,7 +58,7 @@ function Signup (props){
           />
           </div >
         <div className={s.enterdata}>
-        <label>Пароль</label>
+        {/* <label>Пароль</label> */}
             <input
                required='required'
           type='password'

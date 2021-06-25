@@ -5,6 +5,7 @@ const Profile = require('../models/Profile')
 const keys=require('../config/keys')
 const errorHandler = require('../utils/errorHandler')
 const ObjectId = require('mongodb').ObjectId;
+const lentaController=require('./lenta')
 
 module.exports.fetchToken = async function (req, res) {
   const candidate = await User.findOne({ _id: req.user.id })
@@ -19,7 +20,6 @@ res.status(401).json({message:'Не удалось войти в систему 
 }
 
 module.exports.login = async function (req, res) {
-  console.log(req.body)  
   const candidate = await User.findOne({ email: req.body.email })
   if (candidate) {
     //проверка пароля
@@ -58,7 +58,6 @@ module.exports.register=async function(req, res) {
      const salt = bcrypt.genSaltSync(10)
     const password = req.body.password
     const hasProfile=false
-   // console.log(`salt=${salt} pass=${password}`)
      const user = new User({
        email: req.body.email,
        username: req.body.username,
@@ -66,7 +65,9 @@ module.exports.register=async function(req, res) {
      })
    try{
      await user.save()
+     await lentaController.createLenta(user)
      await createProfile(user,res)
+     
     //res.status(201).json(user)
      
      } catch(e) {
@@ -81,7 +82,6 @@ const createProfile = async function (user,res) {
   if (candidate) {
   const id = candidate._id
   let o_id = new ObjectId(id);
-  console.log('id='+id)
  //
   try {
     const newprofile = new Profile({
@@ -93,7 +93,7 @@ const createProfile = async function (user,res) {
         
     })
     await newprofile.save()
-    res.status(201).json(newprofile,user)
+    res.status(201).json({newprofile,user})
   } catch (e) {
     console.log(e)
   }}

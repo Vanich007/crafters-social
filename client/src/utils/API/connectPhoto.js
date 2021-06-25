@@ -11,7 +11,7 @@ export function userPhotoSend(file) {
     })
       .then(resp => resp.json())
       .then(data => {
-        //console.log('updProfile data=',data)
+        
         if (data.message) {
           console.error(data.message)
           //Тут прописываем логику
@@ -26,8 +26,9 @@ export function userPhotoSend(file) {
 
   export const getPhotoByUserId = userId => {
     return dispatch => {
-      let url=  "http://localhost:5000/api/photo/"+userId
-      console.log('url='+url)
+      if (!userId||userId==='undefined') return null
+      let url=  `http://localhost:5000/api/photo/?userId=${userId}`
+      
       return fetch(url, {
         method: "GET",
         headers: {
@@ -37,12 +38,10 @@ export function userPhotoSend(file) {
       })
         .then(resp => resp.json())
         .then(data => {
-          console.log('getPhoto data=',data)
           if (data.message) {
             
             console.error(data.message)
           } else {
-            //console.log('returned photos id='+data._id)
            dispatch(onGetPhoto(data))
        
           }
@@ -52,7 +51,6 @@ export function userPhotoSend(file) {
   export const deletePhotoById = photoId => {
     return dispatch => {
       let url=  "http://localhost:5000/api/photo/"+photoId
-      //console.log('url='+url)
       return fetch(url, {
         method: "DELETE",
         headers: {
@@ -62,13 +60,11 @@ export function userPhotoSend(file) {
       })
         .then(resp => resp.json())
         .then(data => {
-          console.log('delete data=',data)
-          if (data.message='Фото удалено') {
-            dispatch(onDeletePhotoById(photoId))
+          if (data.message) {
+            
             console.error(data.message)
           } else {
-            //console.log('returned photos id='+data._id)
-           
+           dispatch(onDeletePhotoById(data.deleted))
        
           }
         })

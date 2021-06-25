@@ -1,11 +1,79 @@
-import {onUpdatePost, onAddPosts, onGetPosts, onAddComment, onGetComments, onDeletePostById } from '../../reducers/profileReducer'
+import {onGetLenta,onUpdatePost, onAddPosts, onGetPosts, onAddComment, onGetComments, onDeletePostById ,onGetSearchedPosts} from '../../reducers/profileReducer'
 import {onUpdateComment} from '../../reducers/profileReducer'
+
+export function clearCommentById(id) {
+  return dispatch => {
+    let url = "http://localhost:5000/api/posts/comments/" + id
+    return fetch(url, {
+      method: "DELETE",
+      headers: {
+        'Authorization': localStorage.token
+      }
+      // ,
+      // body: file
+    })
+      .then(resp => resp.json())
+      .then(data => {
+               if (data.message) {
+          console.error(data.message)
+          //Тут прописываем логику
+        } else {
+       
+          dispatch(onUpdateComment(data))
+        }
+      })
+   
+  }
+}
+
+export const searchPostsByKeyword = (keyword,user='') => {
+    return dispatch => {
+      let url=  `http://localhost:5000/api/posts/search/?substring=${keyword}&user=${user}&limit=100`
+      
+      return fetch(url, {
+        method: "GET",
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      })
+        .then(resp => resp.json())
+        .then(data => {
+          if (data.message) {
+            
+            console.error(data.message)
+          } else {
+           dispatch(onGetSearchedPosts(data))
+          }
+        })
+      }
+}
+export const getLenta= () => {
+    return dispatch => {
+      let url=  "http://localhost:5000/api/lenta/"
+      
+      return fetch(url, {
+        method: "GET",
+        headers: {
+          'Authorization': localStorage.token
+        }
+      })
+        .then(resp => resp.json())
+        .then(data => {
+          if (data.message) {
+            
+            console.error(data.message)
+          } else {
+           dispatch(onGetSearchedPosts(data))
+           //getPostsByUserId(data._id)
+          }
+        })
+      }
+}
 
 
 export function likeCommentById(id) {
   return dispatch => {
     let url = "http://localhost:5000/api/posts/comments/like/" + id
-    //console.log(file)
     return fetch(url, {
       method: "PATCH",
       headers: {
@@ -30,7 +98,6 @@ export function likeCommentById(id) {
 export function unlikeCommentById(id) {
   return dispatch => {
     let url = "http://localhost:5000/api/posts/comments/unlike/" + id
-    //console.log(file)
     return fetch(url, {
       method: "PATCH",
       headers: {
@@ -53,10 +120,9 @@ export function unlikeCommentById(id) {
   }
 }
 
-export function likePostById(id) {
+export function likePostById(id,lookingProject=null) {
   return dispatch => {
     let url = "http://localhost:5000/api/posts/like/" + id
-    //console.log(file)
     return fetch(url, {
       method: "PATCH",
       headers: {
@@ -67,7 +133,6 @@ export function likePostById(id) {
     })
       .then(resp => resp.json())
       .then(data => {
-        console.log('updProfile data=',data)
         if (data.message) {
           console.error(data.message)
           //Тут прописываем логику
@@ -79,12 +144,11 @@ export function likePostById(id) {
    
   }
 }
-export function unlikePostById(id) {
+export function unlikePostById(id,lookingProject=null) {
   return dispatch => {
     let url = "http://localhost:5000/api/posts/unlike/" + id
-    //console.log(file)
     return fetch(url, {
-      method: "DELETE",
+      method: "PATCH",
       headers: {
         'Authorization': localStorage.token
       }
@@ -93,7 +157,6 @@ export function unlikePostById(id) {
     })
       .then(resp => resp.json())
       .then(data => {
-        console.log('updProfile data=',data)
         if (data.message) {
           console.error(data.message)
           //Тут прописываем логику
@@ -107,8 +170,7 @@ export function unlikePostById(id) {
 }
 export const getCommentsByPostId = postId => {
     return dispatch => {
-      let url=  "http://localhost:5000/api/posts/comments/"+postId
-      console.log('url='+url)
+      let url=  `http://localhost:5000/api/posts/comments/?postId=${postId}&limit=100`
       return fetch(url, {
         method: "GET",
         headers: {
@@ -119,7 +181,6 @@ export const getCommentsByPostId = postId => {
       })
         .then(resp => resp.json())
         .then(data => {
-          console.log('getCommentsByPostId data=',data)
           if (data.message) {
             
             console.error(data.message)
@@ -143,7 +204,6 @@ export const sendPostComment = comment => {
       })
         .then(resp => resp.json())
         .then(data => {
-          //console.log('data after post send='+data.postBody)
           if (data.message) {
             
             //Тут прописываем логику
@@ -157,7 +217,6 @@ export const sendPostComment = comment => {
   export const deletePostById = photoId => {
     return dispatch => {
       let url=  "http://localhost:5000/api/posts/"+photoId
-      //console.log('url='+url)
       return fetch(url, {
         method: "DELETE",
         headers: {
@@ -168,41 +227,16 @@ export const sendPostComment = comment => {
       })
         .then(resp => resp.json())
         .then(data => {
-          console.log('delete data=',data)
-          if (data.message='Пост удален') {
-            dispatch(onDeletePostById(photoId))
-            console.error(data.message)
+          if (data.deleted) {
+            dispatch(onDeletePostById(data.deleted))
+            
           } else {
-            //console.log('returned photos id='+data._id)
-           
-       
+            if (data.message)console.error(data.message)
           }
         })
       }
 }
-// export const sendUserPost = post => {
-//     return dispatch => {
-//       return fetch("http://localhost:5000/api/posts", {
-//         method: "POST",
-//         headers: {
-//           'Content-Type': 'application/json',
-//           'Authorization':localStorage.token
-//         },
-//         body: JSON.stringify(post)
-//       })
-//         .then(resp => resp.json())
-//         .then(data => {
-//           //console.log('data after post send='+data.postBody)
-//           if (data.message) {
-            
-//             //Тут прописываем логику
-//           } else {
-//            // localStorage.setItem("token", data.jwt)
-//            dispatch(onAddPosts(data))
-//           }
-//         })
-//       } 
-// }
+
 export function sendUserPost(post) {
   return dispatch => { 
     return fetch("http://localhost:5000/api/posts", {
@@ -214,7 +248,6 @@ export function sendUserPost(post) {
     })
       .then(resp => resp.json())
       .then(data => {
-        //console.log('updProfile data=',data)
         if (data.message) {
           console.error(data.message)
           //Тут прописываем логику
@@ -238,13 +271,12 @@ export function updateUserPost(postId,post) {
     })
       .then(resp => resp.json())
       .then(data => {
-        //console.log('updProfile data=',data)
         if (data.message) {
           console.error(data.message)
           //Тут прописываем логику
         } else {
           // localStorage.setItem("token", data.jwt)
-          dispatch(onAddPosts(data))
+          dispatch(onUpdatePost(data))
         }
       })
    
@@ -252,8 +284,8 @@ export function updateUserPost(postId,post) {
 }
   export const getPostsByUserId = userId => {
     return dispatch => {
-      let url=  "http://localhost:5000/api/posts/"+userId
-      console.log('url='+url)
+      if (!userId||userId==='undefined') return null
+      let url=  `http://localhost:5000/api/posts/?userId=${userId}&limit=50&offset=0`
       return fetch(url, {
         method: "GET",
         headers: {
@@ -264,7 +296,29 @@ export function updateUserPost(postId,post) {
       })
         .then(resp => resp.json())
         .then(data => {
-          console.log('userPostSend data=',data)
+          if (data.message) {
+            
+            console.error(data.message)
+          } else {
+           dispatch(onGetPosts(data))
+          }
+        })
+      }
+}
+
+ export const getPostById = id => {
+    return dispatch => {
+      let url=  "http://localhost:5000/api/posts/id/"+id
+      return fetch(url, {
+        method: "GET",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization':localStorage.token
+       }
+
+      })
+        .then(resp => resp.json())
+        .then(data => {
           if (data.message) {
             
             console.error(data.message)

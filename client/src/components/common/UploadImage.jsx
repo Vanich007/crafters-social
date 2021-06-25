@@ -19,12 +19,7 @@ const ImageUpload = ({onAddPostPhoto,onAddProfilePhoto,...props }) => {
       setImagePreviewUrl(props.imgSrc)
    }, [])
      
-  // function _handleSubmit(e) {
-  //   e.preventDefault();
-  //   // TODO: do something with -> this.state.file
-  //   console.log('handle uploading-', fileState);
-  //   
-  //   }
+
   function _handleImageChange(e) {
     e.preventDefault();
 
@@ -34,8 +29,8 @@ const ImageUpload = ({onAddPostPhoto,onAddProfilePhoto,...props }) => {
       setFileState(file)
       setImagePreviewUrl(reader.result)
       
-      if(onAddPostPhoto){onAddPostPhoto(file) ; console.log('onAddPostPhoto')      }
-      if(onAddProfilePhoto){onAddProfilePhoto(file); console.log('onAddProfilePhoto') }
+      if(onAddPostPhoto){onAddPostPhoto(file) ;      }
+      if(onAddProfilePhoto){onAddProfilePhoto(file);}
       // });
     }
 

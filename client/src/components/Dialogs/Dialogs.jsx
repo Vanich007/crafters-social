@@ -1,13 +1,15 @@
 import {PureComponent, useEffect} from 'react'
 import { connect } from 'react-redux'
-import {getDialogsByUserId,getMessageByMessageId} from '../../utils/API/connectDialogs'
+import {getDialogsByUserId} from '../../utils/API/connectDialogs'
 import {onGetDialogs} from '../../reducers/dialogsReducer'
 import { Link } from 'react-router-dom'
 import s from './Dialogs.module.css'
 
 class Dialogs extends PureComponent {
     componentDidMount() {
-        this.props.getDialogsByUserId()
+        if (this.props.currentUser._id) { this.props.getDialogsByUserId() }
+
+        document.title = 'Диалоги пользователя' + ` на ${process.env.REACT_APP_SITE_TITLE}`
 }
 componentDidUpdate(prevProps) {
     if (this.props.currentUser._id)
@@ -15,12 +17,13 @@ componentDidUpdate(prevProps) {
         this.props.getDialogsByUserId()
     }}
     render(){
-       // console.log('dialogs',this.props.dialogs)
+       
         
     let dialogs = this.props.dialogs.map(item => {
         let date=item._doc.dialogDate.substr(0, 10)
         return (
-            <li key={item._id}><DialogItem targetUserId={item._doc.targetUser} profileImageSrc={item.profileImageSrc} 
+            <li key={item._id}><DialogItem targetUserId={item._doc.targetUser}
+            profileImageSrc={item.profileImageSrc} 
             targetUser={item.publicName} message={item._doc.lastMessage} date={date}/></li>
         )
     })
@@ -32,16 +35,15 @@ componentDidUpdate(prevProps) {
     </div>)
 }}
 
-const DialogItem=(props)=>{
+const DialogItem = (props) => {
+  
     const profileImageSrc=props.profileImageSrc
-    //console.log('dialogItem=',props.message)
-    return <Link to={props.targetUserId}>
+    
+    return <Link to={'/dialogs/'+props.targetUserId}>
          <div className={s.dialogitem}>
         <div className={s.avatarplace}>       
-      <img src={window.location.origin + "/" + (profileImageSrc?profileImageSrc:'uploads/images/guestavatar.gif')} className={s.avatar}></img>
+      <img src={ (profileImageSrc?profileImageSrc:'/uploads/images/guestavatar.gif')} className={s.avatar}></img>
       </div> 
-            {/* <div className={s.user}> <img src={window.location.origin + "\\" + props.profileImageSrc} /> */}
-            {/* </div> */}
             <div className={s.messagearea}>
                 <div className={s.namemessage}>
                 <span className={s.username}>{props.targetUser}</span>
@@ -61,6 +63,6 @@ const mapStateToProps = (state) => {
         
  
 const DialogsContainer = connect(mapStateToProps,
-     {getDialogsByUserId,getMessageByMessageId})(Dialogs);
+     {getDialogsByUserId})(Dialogs);//getMessageByMessageId
 
 export default DialogsContainer;

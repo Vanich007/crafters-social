@@ -1,6 +1,7 @@
 import React, {useState,useEffect} from 'react';
 import { getPostsByTag } from '../../utils/API/connectTags'
-import {getProfileFetch} from '../../reducers/signupReducer'
+import { getProfileFetch } from '../../reducers/signupReducer'
+import {onClearPost} from '../../reducers/profileReducer'
 import { connect } from 'react-redux'
 import { getCommentsByPostId,getPostsByUserId ,sendPostComment} from '../../utils/API/connectPosts'
 import { getProfileByUserId } from '../../utils/API/connectProfile' 
@@ -8,7 +9,10 @@ import { getProfileByUserId } from '../../utils/API/connectProfile'
 import Post from '../Profile/Post'
 import Modal from '../common/Modal'
 
-const SearchedPosts = (props) =>{
+const SearchedPosts = (props) => {
+    useEffect(() => {
+    document.title = 'Поиск постов по тэгу '+props.match.params.tag + ` на ${process.env.REACT_APP_SITE_TITLE}`
+  }, [])
   let [modalActive,setModalActive]=useState(true)
   let [addPostState, toggleAddPost] = useState(false)
 let [postsIsFetching, setPostsIsFetching] = useState(false)
@@ -19,14 +23,14 @@ let [postsIsFetching, setPostsIsFetching] = useState(false)
     props.getProfileFetch()
     if (props.currentUser._id) {
       // props.getProfileByUserId(props.currentUser._id) 
-      props.getPostsByTag(props.currentUser._id)
+      
     
       setPostsIsFetching(false)
     }
   },[props.currentUser._id])
-
+useEffect(()=>{props.getPostsByTag(tag)},[tag])
 const post = props.posts.map(item => {
-      return <li key={item._id}><Post currentUsername={props.currentUser.username}
+  return <li key={item._id}><Post onClearPost={ props.onClearPost} likes={ item.likes} currentUsername={props.currentUser.username}
         postTags={item.postTags} getCommentsByPostId={props.getCommentsByPostId} 
         sendPostComment={props.sendPostComment} postComments={props.postComments} id={item._id}
         date={item.date} postTitle={item.postTitle} postBody={item.postBody}
@@ -41,7 +45,7 @@ const post = props.posts.map(item => {
 const mapStateToProps = (state) => {
     return {
       currentUser: state.signupPage.currentUser,
-      posts: state.profilePage.posts,
+      posts: state.profilePage.searchedPosts,
       postComments: state.profilePage.postComments,
       status: state.profilePage.status,
       livingPlace:state.profilePage.livingPlace,
@@ -59,7 +63,7 @@ const mapStateToProps = (state) => {
   
 const SearchedPostsContainer = connect(mapStateToProps, {
    sendPostComment,  getPostsByUserId, getProfileFetch,
-  getCommentsByPostId,getProfileByUserId,getPostsByTag
+  getCommentsByPostId,getProfileByUserId,getPostsByTag,onClearPost
 })(SearchedPosts);
 
 export default SearchedPostsContainer;

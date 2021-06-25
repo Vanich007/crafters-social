@@ -4,7 +4,7 @@ const postCommentsSchema = new Schema({
     user: { ref: 'users', type: Schema.Types.ObjectId },
     username: { type: String, defaulf: 'undef' },
     date: { type: Date, required: true, default: Date.now },
-    postId: { type: String, defaulf: '' },
+    postId: { ref: 'posts', type:Schema.Types.ObjectId },
     commentBody: { type: String, defaulf: '' },
     commentImageSrc: { type: String, defaulf: '' },
     likes: [

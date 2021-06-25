@@ -1,35 +1,38 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import s from './ShowProfile.module.css'
 import SendMessage from './SendMessage';
 import Modal from '../common/Modal'
+import {Redirect} from 'react-router-dom'
 
 
 
 export default function ProfileAnketa({ selectedUserProfile, ...props }) {
+  
+  useEffect(()=>{props.getSelectedUserProfileByUserId(props.selectedUser)},[props.selectedUser])
   let [modalActive,setModalActive]=useState(true)
   let [sendMessageState, setSendMessage] = useState(false)
   let [followState, ToggleFollow] = useState(false)   //есть ли связь follow
   const setToggleFollow = () => {
-    if (followState) { ToggleFollow(false); props.unfollow(props.userId) }
+    if (followState) { ToggleFollow(false); props.unfollow(props.selectedUser) }
     
-  else {ToggleFollow(true); props.follow(props.userId)}
+  else {ToggleFollow(true); props.follow(props.selectedUser)}
   }
 
   const profileImageSrc = selectedUserProfile.profileImageSrc
-  //console.log(sendMessageState,modalActive)
+  
   return (<div className={s.anketablock}>
           <div className={s.avatarplace}>       
-      <img src={window.location.origin + "/" + (profileImageSrc?profileImageSrc:'uploads/images/guestavatar.gif')} className={s.avatar}></img>
-      </div> 
-    {/* {(selectedUserProfile.profileImageSrc)?<img src={selectedUserProfile.profileImageSrc}></img>:''} */}
+      <img src={(profileImageSrc?profileImageSrc:'/uploads/images/guestavatar.gif')} className={s.avatar}></img>
+    
+    </div> 
+   
     <div className={s.profcol}>
      <div className={s.line} >
       <label>Статус </label><b>{selectedUserProfile.status}</b></div>
       <div className={s.line} ><label>Место жительства </label><b>{selectedUserProfile.livingPlace}</b></div>
       <div className={s.line} ><label>Имя пользователя </label><b>{selectedUserProfile.publicName}</b></div>
-      {sendMessageState ? (<Modal active={modalActive} setActive={setModalActive} setFalseAfter={setSendMessage}>
-        <SendMessage userMessageSend={props.userMessageSend} userId={props.selectedUser} />
-        </Modal>
+      {sendMessageState ? (<Redirect to ={'/dialogs/'+props.selectedUser}/>
+     
       ) : (
         <button onClick={()=>{setSendMessage(true)}}>Отправить сообщение</button>
         )}

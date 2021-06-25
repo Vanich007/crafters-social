@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import {userLoginFetch} from '../../reducers/signupReducer';
+import {Link} from 'react-router-dom'
 
 function Login({ userLoginFetch,currentUser, ...props}) {
   const [user,setUser]=useState({email: "",password: ""})
@@ -13,17 +14,17 @@ function Login({ userLoginFetch,currentUser, ...props}) {
 
   const handleSubmit = event => {
     event.preventDefault()
-   // console.log(`userLoginFetch(${user.email},${user.password})`)
+   
     userLoginFetch({ email: user.email, password: user.password })
     setUser({email: "",password: ""})
   }
 
 
-    return (
+    return <>
       <form onSubmit={handleSubmit}>
         <h1>Вход</h1>
 
-        <label>Имя пользователя</label>
+        {/* <label>Имя пользователя</label> */}
         <input
           name='email'
           type='email'
@@ -33,7 +34,7 @@ function Login({ userLoginFetch,currentUser, ...props}) {
           onChange={handleChange}
           /><br/>
 
-        <label>Пароль</label>
+        {/* <label>Пароль</label> */}
         <input
           type='password'
           name='password'
@@ -44,8 +45,12 @@ function Login({ userLoginFetch,currentUser, ...props}) {
           /><br/>
 
         <input type='submit'/>
+        
       </form>
-    )
+      <span>Нет аккаунта?</span>
+        <Link to='/signup/'>Зарегистрироваться</Link>
+      
+    </>
 }
 
 

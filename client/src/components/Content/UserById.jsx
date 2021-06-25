@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import ShowProfile from './ShowProfile';
 import { onSelectedUser } from '../../reducers/usersReducer'
 import { follow, unfollow } from '../../utils/API/connectProfile'
@@ -12,73 +12,59 @@ import Post from '../Profile/Post'
 import PhotoPreview from './PhotoPreview'
 
 
-class UserById extends React.PureComponent{
-  constructor(props){
-    super(props)
-    this.sendMessage=false
-  }
-  sendMessage:false
-  componentDidMount() {
-     this.props.getSelectedUserProfileByUserId(this.props.selectedUser)
-    this.props.getSelectedUserPostsByUserId(this.props.selectedUser)
-    this.props.getSelectedUserPhotoByUserId(this.props.selectedUser)
-    this.sendMessage=false
-    
-  }
-  
-  componentDidUpdate(prevProps) {
-    //console.log('selectedUser='+this.props.selectedUserProfile.publicName)
-    
-    if (this.props.selectedUserProfileId !== prevProps.selectedUserProfileId)
-      {
-        this.props.getSelectedUserProfileByUserId(this.props.selectedUser)
-        this.props.getSelectedUserPostsByUserId(this.props.selectedUser)
-        this.props.getSelectedUserPhotoByUserId(this.props.selectedUser)
-      }
-  }
+function UserById(props) {
  
-  render() {
-    //console.log('this.props.selectedUserPhotos=',this.props.selectedUserPhotos)
-    this.userId = this.props.match.params.userId;
+  useEffect(()=> {
+    if (props.selectedUser) {
+      props.getSelectedUserProfileByUserId(props.selectedUser)
+      props.getSelectedUserPostsByUserId(props.selectedUser)
+      props.getSelectedUserPhotoByUserId(props.selectedUser)
+    }},[props.selectedUser]
+  )
+  
+useEffect(()=>{const userId = props.match.params.userId;
+  props.onSelectedUser(userId)
+},[props.match.params.userId])   
+useEffect(()=>{const userId = props.match.params.userId;
+  
+  document.title = 'Профиль пользователя '+props.selectedUserProfile.publicName + ` на ${process.env.REACT_APP_SITE_TITLE}`
+},[props.selectedUserProfile])   
+
     
-    //if (this.props.follow.indexOf(this.userId)) {this.props.onFollow(this.userId) }
-    this.props.onSelectedUser(this.userId)
-        let post=[]
-    post = this.props.selectedUserPosts.map(item => {
-      // const unlikePost = () => unlikePostById(item._id)
-      // const likePost =()=>likePostById(item._id)unlikePostById={this.props.unlikePostById} likePostById={this.props.likePostById} _id={item._id } date={item.date} postBody={item.postBody}
-       // postImageSrc={item.postImageSrc} user={this.props.selectedUserProfile.publicName
-       return (<li key={item._id}><Post  onClearPost={this.props.onClearPost} 
-        unlikePostById={this.props.unlikePostById} likePostById={this.props.likePostById}
-        onSetPostTitleBody={this.props.onSetPostTitleBody} onSelectTag={this.props.onSelectTag} 
-        onAddPostPhoto={ this.props.onAddPostPhoto} likeCommentById={ this.props.likeCommentById} 
-        unlikeCommentById={ this.props.unlikeCommentById} deletePostById={this.props.deletePostById}
-          currentUsername={this.props.currentUser.username} 
-          postTags={item.postTags} getCommentsByPostId={this.props.getCommentsByPostId} 
-          sendPostComment={this.props.sendPostComment} postComments={this.props.postComments} id={item._id}
+    let post = []
+    post = props.selectedUserPosts.map(item => {
+      
+       return (<li key={item._id}><Post getSelectedUserProfileByUserId={props.getSelectedUserProfileByUserId} onClearPost={props.onClearPost} 
+        unlikePostById={props.unlikePostById} likePostById={props.likePostById}
+        onSetPostTitleBody={props.onSetPostTitleBody} onSelectTag={props.onSelectTag} 
+        onAddPostPhoto={ props.onAddPostPhoto} likeCommentById={ props.likeCommentById} 
+        unlikeCommentById={ props.unlikeCommentById} deletePostById={props.deletePostById}
+          currentUsername={props.currentUser.username} 
+          postTags={item.postTags} getCommentsByPostId={props.getCommentsByPostId} 
+          sendPostComment={props.sendPostComment} postComments={props.postComments} id={item._id}
           date={item.date} postTitle={item.postTitle} postBody={item.postBody}
-          userId={item.user} currentUserId={this.props.currentUser._id} postLikes={item.likes}
-          postImageSrc={item.postImageSrc} user={this.props.publicName } 
-          profileImageSrc={this.props.profileImageSrc}
-          onSelectTag={this.props.onSelectTag} sendPostComment={this.props.sendPostComment} 
-          likeCommentById={this.props.likeCommentById} 
-          unlikeCommentById={this.props.unlikeCommentById}/></li>)
+          userId={item.user} currentUserId={props.currentUser._id} likes={item.likes}
+          postImageSrc={item.postImageSrc} user={props.publicName } 
+          profileImageSrc={props.profileImageSrc}
+          onSelectTag={props.onSelectTag} sendPostComment={props.sendPostComment} 
+          likeCommentById={props.likeCommentById} 
+          unlikeCommentById={props.unlikeCommentById}/></li>)
      })
-    let userId=this.props.selectedUser?this.props.selectedUser._id:''
-   // console.log('this.sendMessage',this.sendMessage)
-    return <div><ShowProfile follow={ this.props.follow} unfollow={ this.props.unfollow} selectedUserProfile={this.props.selectedUserProfile} 
-    userMessageSend={this.props.userMessageSend} selectedUser={this.props.selectedUser} />
-  {/* {this.sendMessage?(<SendMessage  userMessageSend={this.props.userMessageSend} userId={this.props.selectedUser}/>):(
-        <button onClick={()=>{this.sendMessage=true}}>Отправить сообщение</button>
-      )} */}
+    let userId=props.selectedUser?props.selectedUser._id:''
+   
+    return (<div><ShowProfile follow={props.follow} unfollow={props.unfollow}
+      selectedUserProfile={props.selectedUserProfile} getSelectedUserProfileByUserId={props.getSelectedUserProfileByUserId}
+    userMessageSend={props.userMessageSend} selectedUser={props.selectedUser} />
+ 
       
       <h3>Галлерея пользователя</h3>
-      {this.props.selectedUserPhotos.length?<PhotoPreview photos={ this.props.selectedUserPhotos}/>:'Фото не загружены'}
+      {props.selectedUserPhotos.length?<PhotoPreview photos={ props.selectedUserPhotos}/>:'Фото не загружены'}
       
     { post }
-    </div>
-  }
+    </div>)
+  
 }
+
 
 
  const mapStateToProps = (state) => {

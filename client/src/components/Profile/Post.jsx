@@ -2,18 +2,29 @@ import s from './Post.module.css';
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Modal from '../common/Modal'
-import { AddPost } from './AddPost'
+
+//import { AddPost } from './AddPost'
 import AddPostContainer from './AddPost'
 //import {getCommentsByPostId} from '../../utils/API/connectPosts'
 
 
 function Post(props) {
-  console.log('props.postImageSrc=',props.postImageSrc)
+ //console.log(props)
 let [readMoreState,setReadMoreState]=useState(true)
   //let background= `background-image:url('${props.postImageSrc}')`
   let date=props.date
     date = date.substr(0, 10)
     
+  // useEffect(() => { 
+  //   props.getSelectedUserProfileByUserId(props.userId) 
+    
+  // },[props.userId])
+
+  useEffect(() => { 
+  props.getCommentsByPostId(props.id)
+  
+},[props.id])
+
   function ReadMoreFoo() {
     if (readMoreState) { setReadMoreState(false) } else { setReadMoreState(true) }
   }
@@ -21,18 +32,21 @@ let [readMoreState,setReadMoreState]=useState(true)
     return (
       <div>
         
-        {readMoreState ? (<ReadMore onClearPost={props.onClearPost} 
+        {readMoreState ? (<ReadMore publicName={props.publicName}
+        user={props.user} postLink={props.postLink } onClearPost={props.onClearPost} 
         onSetPostTitleBody={props.onSetPostTitleBody}  onSelectTag={props.onSelectTag} 
         onAddPostPhoto={props.onAddPostPhoto}
-          postLikes={props.postLikes} deletePostById={props.deletePostById}
+          likes={props.likes} deletePostById={props.deletePostById}
           postTags={props.postTags} ReadMoreFoo={() => ReadMoreFoo()}
           postTitle={props.postTitle} postBody={props.postBody} id={props.id}
           userId={props.userId} currentUserId={props.currentUserId}
           unlikePostById={props.unlikePostById} likePostById={props.likePostById}
-            date={ date} postImageSrc={props.postImageSrc.split('\\').join("/")} />)
+            date={ date} postImageSrc={props.postImageSrc} />)
+            // .split('\\').join("/")
          
-          : (<Full onAddPostPhoto={props.onAddPostPhoto} postLikes={props.postLikes}
-            deletePostById={props.deletePostById}
+          : (<Full publicName={props.publicName}
+            user={props.user} postLink={props.postLink } onAddPostPhoto={props.onAddPostPhoto} likes={props.likes}
+            deletePostById={props.deletePostById} onClearPost={props.onClearPost} 
             postTags={props.postTags} getCommentsByPostId={props.getCommentsByPostId}
             sendPostComment={props.sendPostComment} currentUsername={props.currentUsername}
             userId={props.userId} currentUserId={props.currentUserId}
@@ -40,15 +54,18 @@ let [readMoreState,setReadMoreState]=useState(true)
             postBody={props.postBody} id={props.id} postTitle={props.postTitle}
             unlikePostById={props.unlikePostById} likePostById={props.likePostById}
             date={date} postImageSrc={props.postImageSrc}
-            likeCommentById={ props.likeCommentById} unlikeCommentById={ props.unlikeCommentById}/>)}  
+            likeCommentById={props.likeCommentById} unlikeCommentById={props.unlikeCommentById}
+            onSelectTag={props.onSelectTag} onSetPostTitleBody={props.onSetPostTitleBody}
+            clearCommentById={props.clearCommentById} />)}  
  
   
   </div>
   );
 }
-function ReadMore(props) {
+export function ReadMore(props) {
+  
   const likeFunction=()=>{
-    if(props.postLikes.indexOf(props.currentUserId) >= 0) {props.unlikePostById(props.id)} else 
+    if(props.likes.indexOf(props.currentUserId) >= 0) {props.unlikePostById(props.id)} else 
      {props.likePostById(props.id)}
   }
   const editClick = () => {
@@ -58,120 +75,155 @@ function ReadMore(props) {
     if (props.postTags) props.postTags.forEach(item => props.onSelectTag(item)) 
     props.onSetPostTitleBody(props.postTitle,props.postBody,props.id)
   }
+
     let [modalActive,setModalActive]=useState(true)
   let [editPostState, toggleEditPost] = useState(false)
   let tags = []
   if (props.postTags) {
-    tags = props.postTags.map(item => (<li key={item}>
-      <Link to={process.env.PUBLIC_URL + 'tags/' + item}>  {item}</Link>
+    tags = props.postTags.map(item => (<li  className="tags" key={item}>
+      <Link to={ '/tags/' + item}>  {item}</Link>
     </li>))
   }
-  const deletePost=()=>props.deletePostById(props.id)
+  const deletePost = () => props.deletePostById(props.id)
+  
   return (<div className="blog-card">
     
     
        <div className="meta">
             <div className="photo" id={props.id} style={{backgroundImage:'url('+props.postImageSrc+')'}}></div>
       <ul className="details">
-        <li className="author"><a href="#">{props.user}</a></li>
-        <li className="date"><a href="#">{props.date}</a></li>
-        <li className="tags">
-          <ul>
-            {tags}
-          </ul>
-        </li>
+        {props.selectedUserProfile?<li className="author"><a href="/users/userId">{props.selectedUserProfile.publicName}</a></li> : ''}
+        <li className="date">{props.date}</li>
+        {tags}
       </ul>
     </div>
     <div className="description">
-      <h2>{props.postTitle}</h2>
+      <Link to={props.postLink }><h2>{props.postTitle}</h2></Link>
       
-      {props.userId == props.currentUserId ?
+      {props.userId == props.currentUserId ?<>
         <div className={s.delete_edit_buttons}>
           
           <button title="удалить пост" className={s.delete__button } onClick={deletePost}></button>
          {editPostState ? (<Modal active={modalActive} setActive={setModalActive}
         setFalseAfter={toggleEditPost}>
             <AddPostContainer /> </Modal>
-          ) : <button title="редактировать пост" className={s.edit__button } onClick={ editClick }></button>}
+          ) : <button title="редактировать пост" className={s.edit__button}
+            onClick={editClick}></button>}
         
         
-        </div> : ''}
+        </div></> : ''}
+        <div className={s.post_username}>
+ <Link to={'/users/'+props.user }><b>Автор: {props.publicName}</b></Link>
+ </div>
       
       
              <p className='descrtext'> {props.postBody}</p>
       <p className="read-more">
-        <button title="мне нравится!" className={props.postLikes.indexOf(props.currentUserId) >= 0 ? s.like__button_active : s.like__button}
+        <button title="мне нравится!" className={props.likes.indexOf(props.currentUserId) >= 0 ? s.like__button_active : s.like__button}
           onClick={likeFunction}></button>    
         
           <span onClick={()=>props.ReadMoreFoo()}>Read More</span>
             </p>
-      
-       
-            
+        
     </div>
-
     </div>)
 }
-function Full(props) {
+
+
+
+export function Full(props) {
+  const likeFunction=()=>{
+    if(props.likes.indexOf(props.currentUserId) >= 0) {props.unlikePostById(props.id)} else 
+     {props.likePostById(props.id)}
+  }
+  //console.log(props)
+  document.title=props.postTitle
+
+  const editClick = () => {
+    toggleEditPost(true);
+    props.onClearPost()
+    props.onAddPostPhoto(props.postImageSrc)
+    if (props.postTags) props.postTags.forEach(item => props.onSelectTag(item)) 
+    props.onSetPostTitleBody(props.postTitle,props.postBody,props.id)
+  }
+
+    let [modalActive,setModalActive]=useState(true)
+  let [editPostState, toggleEditPost] = useState(false)
+
+ // let [showButtons,setShowButtons]=useState(false)
   const deletePost=()=>props.deletePostById(props.id)
   const tags = props.postTags.map(item => (<li key={item} className={s.tags}>
-    <Link to={process.env.PUBLIC_URL+'tags/' + item }>{item}</Link></li>))
-  useEffect(()=>{if(props.id)props.getCommentsByPostId(props.id)},[props.postComments])
+    <Link to={'/tags/' + item }>{item}</Link></li>))
+
+  //useEffect(()=>{if(props.id)props.getCommentsByPostId(props.id)},[props.postComments])
+
   //let [commentState,setCommentState]=useState('')
   let comments=[]  
 if(props.postComments) comments = props.postComments.filter(item=>item.postId===props.id)
   let thisComments = comments.map(item => {
-    const likeComment =()=> props.likeCommentById(props.id)
-    const unlikeComment = () => props.unlikeCommentById(props.id)
+    const likeComment =()=> props.likeCommentById(item._id)
+    const unlikeComment = () => props.unlikeCommentById(item._id)
     const editPost = () => {
-//const AddPostContainer = connect(mapStateToProps, {onAddPostPhoto,saveTag,onSelectTag,sendUserPost,searchTagsBySubstring})(AddPost);
+
 
     //  <AddPost  />
     }
-   return (<div className='blog-card'>
+   return (<li key={item._id}><div className='blog-card'>
             <div className={s.user}> 
-            <div className={s.avatarplace}>       
-      {/* <img src={window.location.origin + "/" + (profileImageSrc?profileImageSrc:'uploads/images/guestavatar.gif')} className={s.avatar}></img> */}
+            <div className={s.avatarplace}>   
+            <img src={ (item.profileImageSrc?item.profileImageSrc:'/uploads/images/guestavatar.gif')} className={s.avatar}></img>    
       </div> 
     </div>
             <div className={s.messagearea}>
-                <div className={s.namemessage}>
+              <span className={s.date}>{item.date.substr(0,10)}</span>
+       <div className={s.namemessage}>
+         
                 <span className={s.username}>{item.username}</span>
                 <span className={s.message}>{item.commentBody}</span>
                 </div>
        <div className={s.right_commentbar}>
-         <span className={s.date}>{props.date}</span>
-         {item.user == props.currentUserId ? <div> <button title="удалить пост" className={s.delete__button } onClick={deletePost}></button>
-           <button title="редактировать пост" onClick={editPost}>edit</button>
-         </div> : ''}
+         {item.user == props.currentUserId ? <>
+           <button title="удалить комментарий" className={s.delete__button} onClick={()=>props.clearCommentById(item._id)}></button>
+           {/* <button title="редактировать комментарий" className={s.edit__button} onClick={editPost}></button> */}
+         </> : ''}
          
 <button title="мне нравится!" className={item.likes.indexOf(props.currentUserId) >= 0 ? s.like__button_active : s.like__button}
-          onClick={item.likes.indexOf(props.currentUserId)>=0?likeComment:unlikeComment}></button>    
-
-         
+          onClick={item.likes.indexOf(props.currentUserId)>=0?unlikeComment:likeComment}></button>    
          </div>
         </div>
-
-      
-
-  </div>)
-    // <li key={item._id}>{item.username}=>{item.commentBody}</li>)
+  </div></li>)
  })
-  //const sendComment = (commentBody)=>props.sendPostComment(props.id,commentBody)\
-  //console.log('postLikes index ',props.postLikes.indexOf(props.currentUserId))
   
   return (<div className="blog-card-full">
     
     <img className="blog-card-full-image" src={props.postImageSrc}></img>
-    <p className='descrtextfull'>
-      <h2>{props.postTitle}</h2>
-      {props.postBody}</p>
+    <div className='descrtextfull'>
+    <div className={s.post_username}>
+ <Link to={'/users/'+props.user }><b>Автор: {props.publicName}</b></Link>
+ </div>
+      <Link to={props.postLink}><h2>{props.postTitle}</h2></Link>
+      
+      {props.userId == props.currentUserId ?(<>
+      
+        <div className={s.delete_edit_buttons}>
+          
+          <button title="удалить пост" className={s.delete__button } onClick={deletePost}></button>
+         {editPostState ? (<Modal active={modalActive} setActive={setModalActive}
+        setFalseAfter={toggleEditPost}>
+            <AddPostContainer /> </Modal>
+          ) : <button title="редактировать пост" className={s.edit__button}
+            onClick={editClick}></button>}
+        
+        
+        </div></>) : ''}
+
+      {props.postBody}</div>
     
-    <p className="read-more">
+    <div className="read-more">
      
       <div className='horizontal'>
-        <button title="мне нравится!" className={props.postLikes.indexOf(props.currentUserId) >= 0 ? s.like__button_active : s.like__button}
-          onClick={props.postLikes.indexOf(props.currentUserId)>=0?props.likePostById:props.unlikePostById}></button>    
+        <button title="мне нравится!" className={props.likes.indexOf(props.currentUserId) >= 0 ? s.like__button_active : s.like__button}
+           onClick={likeFunction}></button>    
         {tags}
       </div><span onClick={() => props.ReadMoreFoo()}>Свернуть</span>
     <ul>
@@ -179,22 +231,20 @@ if(props.postComments) comments = props.postComments.filter(item=>item.postId===
     </ul>
     
       
-    </p>
+    </div>
     <AddComment currentUsername={props.currentUsername} sendComment={props.sendPostComment} id={props.id}/>
      </div>)
 }
 function AddComment (props){
   let [commentState, setCommentState] = useState('')
-  
-
-  
+    
   const handleChange = event => {
     setCommentState(event.target.value); 
    
     }
   const handleSubmit = event => {
     event.preventDefault()
-    //console.log('sendUserPost');
+    
     props.sendComment({ username: props.currentUsername, postId: props.id, commentBody: commentState })
     setCommentState('')
   }

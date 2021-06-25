@@ -36,7 +36,7 @@ export default function Posts (props){
       })
         .then(resp => resp.json())
         .then(data => {
-          console.log('userPostSend data=',data)
+          
           if (data.message) {
             
             //Тут прописываем логику

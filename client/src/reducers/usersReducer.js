@@ -11,14 +11,18 @@ const defaultstate= {
                 publicName:'Здесь будет имя',
             _id: '605b733f6fd9cf1bc86adb90'
         }],
-    selectedUserPhotos:[],
+    selectedUserPhotos: [{ photoImageSrc: 'https://static.mvd.ru/upload/site81/document_images/IMG_0581_d1-800x600.jpg' },
+        { photoImageSrc: 'https://static.mvd.ru/upload/site81/document_images/IMG_0581_d1-800x600.jpg' },
+        { photoImageSrc: 'https://static.mvd.ru/upload/site81/document_images/IMG_0581_d1-800x600.jpg' },
+          { photoImageSrc: 'https://static.mvd.ru/upload/site81/document_images/IMG_0581_d1-800x600.jpg' }
+    ],
     selectedUserProfile:{    status: 'Здесь будет статус',
     publicName:'Здесь будет имя', //- чьи данные профиля загружены
     livingPlace:'Здесь будет место жительства',
     profileImageSrc:'https://static.mvd.ru/upload/site1/document_news/Kaliningrad-630xx225.jpg?rnd=0.4784786219426467',
     date:'дата регистрации',_id:'605b733f6fd9cf1bc86adb90'},
     selectedUserPosts: [],
-    
+     
     selectedUser: '605b733f6fd9cf1bc86adb90'
     }
   
@@ -27,7 +31,7 @@ const userReducer=(state = defaultstate, action)=>{
     switch (action.type){
         case GOTSEARCHEDUSERS:  //для отображения в поиске
             newState.users=[...action.data]
-            //console.log('newState.users'+newState.users)
+            
         return newState
     case SELECTUSER:
         newState.selectedUser= action.id

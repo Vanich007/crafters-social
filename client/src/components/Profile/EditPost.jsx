@@ -9,7 +9,7 @@ import {onSelectTag} from '../../reducers/tagsReducer'
 import ImageUpload from '../common/UploadImage'
 
 export function EditPost(props) {
-  console.log(props.selectedTags)
+  
   let [modalActive, setModalActive] = useState(true)
   let [insertTagState, setInsertTag] = useState(false)
    
@@ -27,8 +27,8 @@ export function EditPost(props) {
 
   const handleSubmit = event => {
     event.preventDefault()
-    //console.log('sendUserPost');
-    //props.sendUserPost({ : , :  })
+    
+    
 
     const formData = new FormData(); 
     if(props.postImageSrc)
@@ -111,7 +111,7 @@ const InsertTag = (props) => {
 
   const handleSubmit = event => {
     event.preventDefault()
-    //console.log('sendUserTags');
+    
 const tags=props.tags.filter((item)=>item.tagBody===tagState)
     if (tags.length) { props.onSelectTag(tags[0]) }
     else {props.saveTag(tagState)

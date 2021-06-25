@@ -7,6 +7,7 @@
 }
 .enterdata{
     width: 100%;
+    display: flex;
 }
 .wrapper{
     display: flex;
@@ -57,14 +58,7 @@ color: blaCK;
 align-self:stretch;
 }
 
-.user{
-    font-size: 1em;
-    color:blue;
-    text-transform:none;
-       
-    padding: 5px; 
-    /* align-self:flex-start */
-}
+
 
   .tags{
           color: #2e6da4;
@@ -101,10 +95,11 @@ align-self:stretch;
 
   width: 100%;
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
   padding-left: 10px;
+  position: relative;
 }
 .namemessage{
     display: flex;
@@ -113,10 +108,14 @@ align-self:stretch;
   justify-content: space-between;
 }
 .date{
+  position: absolute;
+  top: -30px;
+  right: 60px;
 color:#A1D3A2;
-font-size: 0.7rem;
+font-size: 0.8rem;
 align-self: flex-start;
 padding: 5px;
+transition: 1s;
 }
 .username{
   font-size: 1.2rem;
@@ -126,7 +125,7 @@ padding: 5px;
 .user{
   display: flex;
   width:150px;
-  height:150px;
+  max-height:150px;
 }
 .user img{
   margin:auto;
@@ -135,7 +134,7 @@ padding: 5px;
 }
 .avatarplace{
   width:170px;
-  height: 150px;
+  max-height: 150px;
   display: flex;
 }
 .avatar{margin: auto;
@@ -145,36 +144,67 @@ padding: 5px;
       max-height: 150px;
 }
 .right_commentbar{
+  position: absolute;
+  right: -30px;
   height: 100%;    
   display: flex;
   flex-direction: column;
   align-items:flex-end ;
-  justify-content: space-between;
+  justify-content: flex-start;
+    transition: 1s;
+    opacity: 0.3;
+}
+.right_commentbar:hover{
+  right: 10px;
+   opacity: 1;
+}
+.messagearea:hover .right_commentbar{
+  right: 10px;
+   opacity: 1;
+}
+.messagearea:hover .date{
+  top: 0px;
+   
 }
 .delete_edit_buttons{
   position: absolute;
-  right:0;
+  right: -30px;
   top:0;
+  height: 100%;    
+  display: flex;
+  flex-direction: column;
+  align-items:flex-end ;
+  justify-content: flex-start;
+    transition: 1s;
+    opacity: 0.3;
+}
+.delete_edit_buttons:hover{
+ 
+  right:10px;
+  opacity: 1;
+  
 }
 .like__button{
   background: #337ab7 no-repeat url('http://localhost:3000/images/like.png');
   background-position: center;
-  padding:0 20px;
+  padding:5px 20px;
   /* width: 50px; */
   height: 30px;
   color:#fff;
-  margin-left: 15px;
+  margin: 3px;
+  margin: 5px;
 float:left;
 opacity: .3;
 }
 .like__button_active{
   background: #337ab7 no-repeat url('http://localhost:3000/images/like.png');
   background-position: center;
-  padding:0 20px;
+  padding:5px 20px;
   /* width: 50px; */
   height: 30px;
   color:#fff;
-  margin-left: 15px;
+  margin: 5px;
+  /* margin-left: 15px; */
 float:left;
 opacity: 1;
 }
@@ -185,7 +215,8 @@ opacity: 1;
   /* width: 50px; */
   height: 30px;
   color:#fff;
-  margin-left: 15px;
+  margin: 3px;
+  /* margin-left: 15px; */
 float:left;
 }
 .edit__button{
@@ -195,7 +226,28 @@ float:left;
   /* width: 50px; */
   height: 30px;
   color:#fff;
-  margin-left: 15px;
+  margin: 3px;
+  /* margin-left: 15px; */
 float:left;
 }
+.post_username{
+  position: absolute;
+  left: 10px;
+  top:0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items:flex-end ;
+  justify-content: flex-start;
+  transition: 1s;
+  opacity: 0.3;
+ }
+ .post_username:hover{
+ 
+  /* right:10px; */
+  opacity: 1;
+ 
+ 
+ }
+
 

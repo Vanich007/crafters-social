@@ -6,6 +6,7 @@
 .dialogwrapper{
   position:absolute;
      top:0;
+     width: 80%;
 }
 
 .messagecard{
@@ -13,11 +14,28 @@
   flex-direction: row;
   margin: 1rem auto;
   margin-bottom: 1.6%;
-  background: #fff;
+  background-color: #fff;
   line-height: 1.4;
   overflow: hidden;
   z-index: 0;
   padding: 5px;
+  
+}
+.messagecard .messagearea{
+  position: relative;
+background: rgb(207, 236, 250);
+border-radius: 10px;
+}
+.messagecard .messagearea::after{
+  position: absolute;
+  bottom:0px;
+  left: -10px;
+  content:'';
+width: 0;
+height: 0;
+border: 10px solid transparent;
+border-bottom: 20px solid rgb(207, 236, 250);
+
 }
 .messagecard2{
   display: flex;
@@ -29,7 +47,25 @@
   overflow: hidden;
   z-index: 0;
   padding: 5px;
+  
 }
+.messagecard2 .messagearea{
+  position: relative;
+background: rgb(221, 252, 249);
+border-radius: 10px;
+
+}
+.messagecard2 .messagearea::before{
+  position: absolute;
+  bottom:0px;
+  right: -10px;
+  content:'';
+width: 0;
+height: 0;
+border: 10px solid transparent;
+border-bottom: 20px solid rgb(221, 252, 249);
+}
+
 .dialogitem{
   display:flex;
   flex-direction: row;
@@ -69,7 +105,10 @@
   justify-content: space-between;
 }
 .date{
-color:#A1D3A2;
+  position: absolute;
+  top:0px;
+  right: 0;
+color:#445a44;
 font-size: 0.7rem;
 align-self: flex-start;
 padding: 5px;

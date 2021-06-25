@@ -7,13 +7,14 @@ const ObjectId = require('mongodb').ObjectId;
 
 module.exports.getProtoByUserId = async function (req, res) {
     
-    const id = req.params.userId
+    const id = req.query.userId
     if(id===undefined) return null
-   // console.log('profile userId='+id);
     let o_id = new ObjectId(id);
     try {        const photos = await Photos.find({    //req.params.id - id страницы со списком сообщений
                 user:o_id
-        })
+        }).sort({ date: -1 })
+        .skip(+req.query.offset)
+        .limit(+req.query.limit)
         res.status(200).json(photos)
         
     } catch (e) {
@@ -25,7 +26,7 @@ module.exports.getProtoByUserId = async function (req, res) {
 module.exports.remove = async function (req, res) {
     try {
         await Photos.remove({ _id: req.params.id })
-         res.status(200).json({message:'Фото удалено'})
+         res.status(200).json({deleted:req.params.id})
         
     } catch (e) {
         errorHandler(res,e)
@@ -40,7 +41,6 @@ module.exports.create = async function (req, res) {
             photoComment:req.body.photoComment
         
         })
-        console.log('photo new=' + newPhotos.photoImageSrc + '-----' + newPhotos.photoComment);
             await newPhotos.save()
         res.status(201).json(newPhotos)
     } catch (e) {

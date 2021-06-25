@@ -34,7 +34,7 @@ class Photo extends React.PureComponent{
   }
 
   render() {
-    //console.log('profileId='+this.props.profileId)
+
     let post=[]
     if (!this.postsIsFetching) post = this.props.posts.map(item => {
       return <li key={item.date}><Post date={item.date} postBody={item.postBody}

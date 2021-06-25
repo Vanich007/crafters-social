@@ -104,8 +104,7 @@ function returnFileSize(number) {
   
    function _handleSubmit(e) {
     e.preventDefault();
-        // console.log(`photosComments length =` + inputMass.current.length)   
-        // console.log(`photosComments =`+inputMass.current)     
+        
     var curFiles = inputRef.current.files;  
     for (var i = 0; i < curFiles.length; i++) if(validFileType(curFiles[i])) {
       const formData = new FormData(); let image: File

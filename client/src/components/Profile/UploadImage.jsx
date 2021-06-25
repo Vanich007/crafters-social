@@ -23,15 +23,12 @@ const ImageUpload = (props) => {
   function _handleSubmit(e) {
     e.preventDefault();
     // TODO: do something with -> this.state.file
-    console.log('handle uploading-', fileState);
+    
     const formData = new FormData();
     let image:File
     image= fileState
     formData.append('image', image, image.name)
-    // formData.append('status',props.status )
-    // formData.append('livingPlace', props.livingPlace)
-    // formData.append('publicName', props.publicName)
-   
+ 
     props.userProfileSend(formData, props.profileId)
     setFileState('')
   setImagePreviewUrl('')

@@ -1,8 +1,8 @@
 import React from 'react'
 import s from './Photos.module.css';
-import { onGetPhoto,onDeletePhotoById } from '../../reducers/profileReducer'
 import { connect } from 'react-redux'
-import { userPhotoSend,getPhotoByUserId } from '../../utils/API/connectPhoto'
+import { onGetPhoto } from '../../reducers/profileReducer'
+import { userPhotoSend,getPhotoByUserId,deletePhotoById } from '../../utils/API/connectPhoto'
 import Preloader from '../../utils/preloader'
 import PhotoItem from './PhotoItem'
 import AddPhotoContainer from './AddPhotoContainer'
@@ -10,14 +10,18 @@ import AddPhotoContainer from './AddPhotoContainer'
 
 
 class Photos extends React.Component{
- postsIsFetching:false
+  postsIsFetching: false
+  
+  
+  
   componentDidMount() {
     this.postsIsFetching=true  
     if (this.props.currentUser._id) this.props.getPhotoByUserId(this.props.currentUser._id)
+      document.title = 'Галерея пользователя' + ` на ${process.env.REACT_APP_SITE_TITLE}`
     this.postsIsFetching=false
   }
   componentDidUpdate(prevProps){
-    if(this.props.currentUser!==prevProps.currentUser)
+    if((this.props.currentUser!==prevProps.currentUser)&& this.props.currentUser._id)
     {
     this.postsIsFetching=true  
     if (this.props.currentUser._id) this.props.getPhotoByUserId(this.props.currentUser._id)
@@ -30,14 +34,14 @@ class Photos extends React.Component{
     
     
     let photos = this.props.photos.map(item => {
-      const deleteItem=onDeletePhotoById(item._id)
+      //const deleteItem=this.props.deletePhotoById(item._id)
       let comment=''
       if(item.photoComment!=='undefined'){comment=item.photoComment}
-      return <li key={item._id}><PhotoItem deleteItem={ deleteItem} date={item.date} 
-      photoComment={comment}
+      return <li key={item._id}><PhotoItem deletePhotoById={ this.props.deletePhotoById} date={item.date} 
+      photoComment={comment} id={item._id}
         photoImageSrc={item.photoImageSrc} user={item.user} likes={item.likes}/></li>
     })
-    //console.log('profileId=' + this.props.profileId + 'this.currentUser=' + this.props.currentUser._id,photos)
+    
     return (<div><h1>Загруженные фото:</h1>
       {this.props.ProfileId === this.props.currentUser ? (<AddPhotoContainer />) : ('')}
       {/* <AddPhotoContainer /> */}
@@ -62,7 +66,7 @@ class Photos extends React.Component{
 
   
 const PhotoContainer = connect(mapStateToProps, {
-   onGetPhoto,userPhotoSend,getPhotoByUserId,onDeletePhotoById
+   onGetPhoto,userPhotoSend,getPhotoByUserId,deletePhotoById
 })(Photos);
 
 export default PhotoContainer;

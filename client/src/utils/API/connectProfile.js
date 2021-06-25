@@ -5,7 +5,6 @@ import {getPostsByUserId} from './connectPosts'
 export function follow(user) {
   return dispatch => {
     let url = "http://localhost:5000/api/profile/follow/" + user
-    //console.log(file)
     return fetch(url, {
       method: "PATCH",
       headers: {
@@ -16,7 +15,6 @@ export function follow(user) {
     })
       .then(resp => resp.json())
       .then(data => {
-        console.log('updProfile data=',data)
         if (data.message) {
           console.error(data.message)
           //Тут прописываем логику
@@ -31,7 +29,6 @@ export function follow(user) {
 export function unfollow(user) {
   return dispatch => {
     let url = "http://localhost:5000/api/profile/unfollow/" + user
-    //console.log(file)
     return fetch(url, {
       method: "DELETE",
       headers: {
@@ -42,7 +39,6 @@ export function unfollow(user) {
     })
       .then(resp => resp.json())
       .then(data => {
-        console.log('updProfile data=',data)
         if (data.message) {
           console.error(data.message)
           //Тут прописываем логику
@@ -69,12 +65,10 @@ export function unfollow(user) {
       })
         .then(resp => resp.json())
         .then(data => {
-          console.log('searchProfileByKeyword data=',data)
           if (data.message) {
             
             console.error(data.message)
           } else {
-            //console.log('returned profiles id='+data[0]._id)
            dispatch(onGetSearchedProfiles(data))
            //getPostsByUserId(data._id)
           }
@@ -84,13 +78,12 @@ export function unfollow(user) {
 
   export const getProfileByUserId = userId => {
     return dispatch => {
-      if (userId===undefined) return null
+      if (!userId||userId==='undefined') return null
       let url=  "http://localhost:5000/api/profile/"+userId
         return fetch(url, {
         method: "GET",
         headers: {
           'Content-Type': 'application/json',
-
            Accept: 'application/json'
         }
       })
@@ -98,9 +91,8 @@ export function unfollow(user) {
         .then(data => {
           if (data.message) {
           } else {
-            console.log('returned profile id='+data._id)
            dispatch(onGetProfile(data))
-           getPostsByUserId(data.user)
+           //getPostsByUserId(data.user)
           }
         })
       }
@@ -110,7 +102,6 @@ export function unfollow(user) {
 export const updateProfile = (user) => {
     return dispatch => {
       let url=  "http://localhost:5000/api/profile"
-      //console.log('url='+url)
       return fetch(url, {
         method: "PATCH",
         headers: {
@@ -121,9 +112,8 @@ export const updateProfile = (user) => {
       })
         .then(resp => resp.json())
         .then(data => {
-          console.log('updatedProfile data=',data)
           if (data.message) {
-            console.error(data.message)
+            
             //Тут прописываем логику
           } else {
            
@@ -136,7 +126,6 @@ export const updateProfile = (user) => {
 export function userProfileSend(file) {
   return dispatch => {
     let url = "http://localhost:5000/api/profile"
-    console.log('userProfileSend',file)
     return fetch(url, {
       method: "PATCH",
       headers: {
@@ -146,7 +135,6 @@ export function userProfileSend(file) {
     })
       .then(resp => resp.json())
       .then(data => {
-        console.log('updProfile data=',data)
         if (data.message) {
           console.error(data.message)
           //Тут прописываем логику

@@ -13,12 +13,18 @@ export default function Users({ searchProfileByKeyword,users,currentUser,profile
  
   let [searchStringState, setsearchStringState]=useState('')
    const history=useHistory()
+
+   
+
   
    useEffect(()=>{
     const parsed=querystring.parse(history.location.search.substr(1))
-    debugger
+    
     setsearchStringState(parsed.username)
-     searchProfileByKeyword(parsed.username);
+    searchProfileByKeyword(parsed.username);
+    let userName=''
+    if(parsed.username)userName=parsed.username
+    document.title = 'Поиск пользователя '+userName + ` на ${process.env.REACT_APP_SITE_TITLE}`
   },[])
 
 const handleChange = event => {

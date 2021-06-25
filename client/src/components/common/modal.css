@@ -29,6 +29,8 @@
     transition: 0.4s all;
     width: 50vw;
     z-index: 200;
+    overflow-y: auto;
+    max-height: 80vh;
 }
 .modal__conten img{
     max-width: 50%;

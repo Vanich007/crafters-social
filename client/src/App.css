@@ -1,8 +1,13 @@
 *{
     box-sizing: border-box;
 }
-li{
+li,ul{
         list-style:none;
+            -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 10px;
 }
 
 @import url("https://fonts.googleapis.com/css?family=Varela+Round");
@@ -17,6 +22,16 @@ img{
 }
 label{
   padding-left: 10px;
+}
+a{
+  color:#015b9e;
+  transition: .5s;
+}
+a:visited{
+  color:#015b9e;
+}
+a:hover{
+  opacity: .5;
 }
 .horizontal{
   display: flex;
@@ -37,12 +52,14 @@ label{
   flex-flow: column nowrap;
   overflow: hidden;
 }
+
 .menu-container {
   height: 20vh;
   width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
+
 }
 
 .menu-container ul {
@@ -232,10 +249,6 @@ li:hover:after {
     font-weight: 500;
 }
 
-.btn-group-vertical > .btn-group:after, .btn-group-vertical > .btn-group:before, .btn-toolbar:after, .btn-toolbar:before, .clearfix:after, .clearfix:before, .container-fluid:after, .container-fluid:before, .container:after, .container:before, .dl-horizontal dd:after, .dl-horizontal dd:before, .form-horizontal .form-group:after, .form-horizontal .form-group:before, .modal-footer:after, .modal-footer:before, .nav:after, .nav:before, .navbar-collapse:after, .navbar-collapse:before, .navbar-header:after, .navbar-header:before, .navbar:after, .navbar:before, .pager:after, .pager:before, .panel-body:after, .panel-body:before, .row:after, .row:before {
-    display: table;
-    content: " ";
-}
 .pull-right, .calendar-header a:last-child {
     float: right !important;
 }
@@ -254,6 +267,12 @@ li:hover:after {
 }
 .glyphicon-share-alt:before {
     content: "\e095";
+}
+input{
+  border:0;
+  border-bottom: 2px solid #2e6da4;
+  background-color: #fff;
+
 }
 button,input[type=submit]{
     
@@ -286,9 +305,13 @@ button:hover,input:hover{
   opacity: .7;
 }
 textarea{
-  width: 100%;
-  height: 100%;
+  width: calc(100% - 30px);
+  height: 80%;
   min-height: 150px;
+  z-index:1;
+  margin: auto;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px 3px rgba(37, 52, 134, 0.2);
 }
 .btn {
     display: inline-block;
@@ -365,6 +388,7 @@ textarea{
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  position: relative;
   margin: 1rem auto;
   margin-bottom: 1.6%;
   background: #fff;
@@ -421,12 +445,6 @@ textarea{
     transition: transform .5s;
   }
 
-.blog-card.details,
-.blog-card  .details ul {
-    margin: auto;
-    padding: 0;
-    list-style: none;
-  }
 
  .blog-card .details {
     position: absolute;
@@ -441,13 +459,21 @@ textarea{
     width: 100%;
     font-size: 1.3rem;
  }
+
+ .blog-card .details,
+.blog-card  .details ul {
+    margin: auto;
+    padding: 0;
+    list-style: none;
+  }
+
  .blog-card   a {
       text-decoration: dotted underline
     }
- .blog-card   ul li {
+ /* .blog-card   ul li {
       display: inline-block;
-    }
- .blog-card>.author:before {
+    } */
+ /* .blog-card>.author:before {
       font-family: FontAwesome;
       margin-right: 10px;
       content: "\f007";
@@ -462,7 +488,7 @@ textarea{
         font-family: FontAwesome;
         content: "\f02b";
         margin-right: 10px;
-      }
+      } */
  .blog-card   .tags     li {
         margin-right: 2px;
   }
@@ -476,6 +502,9 @@ left:0;
     /* z-index: 1; */
     overflow: hidden;
     text-overflow: clip;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     /* max-height: 350px; */
   }
 
@@ -525,6 +554,7 @@ left:0;
             overflow: hidden;
     text-overflow: clip;
     padding: 10px;
+    text-align: justify;
       }
       .descrtextfull {
         
@@ -561,6 +591,9 @@ left:0;
 
 .blog-card {    flex-direction: row;
     max-width: 700px;
+    margin: 10px;
+    min-height: 100px;
+    max-height: 300px;
 }
   .blog-card   .meta {
       flex-basis: 40%;
@@ -598,13 +631,48 @@ left:0;
   }
 
   .photopreview{
-    display: flex;
+   
+    max-width: 100%;
+    overflow: hidden;
+    position: relative;
+    height: 200px;
+    
+  }
+  .slider{
+    transition: 1000ms;
+     display: flex;
     flex-direction: row;
     /* flex-wrap: wrap; */
     max-height: 300px;
-    max-width: 100%;
-    flex-wrap: nowrap;
+position: absolute;
+top:0;
+left:0;
+
   }
+#footer{
+
+    position: absolute;
+    bottom: 0;
+  
+    width: 100%;
+    overflow: hidden;
+    border-style: solid;
+    border-width: 0 1px 0 0;
+    zoom: 1;
+
+  z-index:150;
+    box-shadow:0 1px 5px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+
+.nodisplay{
+  display:none;
+}
 
 /* **********пост**** */
 /* ***********меню боковое******** */

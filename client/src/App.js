@@ -13,6 +13,10 @@ import DialogsContainer from './components/Dialogs/Dialogs';
 import DialogByUserIdContainer from './components/Dialogs/DialogByUserId'
 import SearchedPostsContainer from './components/Posts/SearchPosts'
 import ProjectsContainer from './components/Projects/Projects'
+import ProjectByIdContainer from './components/Projects/ProjectById'
+import PostByIdContainer from './components/Profile/PostById'
+import SearchPostsContainer from './components/Search/Search'
+import LentaContainer from './components/Lenta/Lenta'
 
 function App() {
   
@@ -36,17 +40,25 @@ function App() {
               }}> 
              </Route> */}
             <Route exact path='/'><Redirect to ='/profile'/></Route>
-            
+             <Route  path='/search' component={SearchPostsContainer}> 
+              </Route>  
              <Route path='/users/:userId' component={UserByIdContainer}>
             </Route> 
             <Route  path='/dialogs/:userId' component={DialogByUserIdContainer}> 
             </Route> 
              <Route  path='/tags/:tag' component={SearchedPostsContainer}> 
-            </Route>  
+              </Route>  
+              <Route path='/projects/:projectId' component={ProjectByIdContainer}> 
+              </Route> 
+              <Route  path='/posts/:postId' component={PostByIdContainer}> 
+              </Route> 
+             
            
 
           <Route exact path='/users/' >
-              <UsersContainer /> </Route>  
+                <UsersContainer /> </Route>  
+               <Route exact path='/lenta/' >
+              <LentaContainer /> </Route>  
             
             <Route exact path='/signup/' >
             <SignUp /> </Route>  
@@ -64,8 +76,10 @@ function App() {
               <ProjectsContainer /> </Route>                
                                
         </div>
-      </div>
+          </div>
+          <div className={s.Footer}>
       <Footer />
+      </div>
 </div></div>
       </Router>
   );
