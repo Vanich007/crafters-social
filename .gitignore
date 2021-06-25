@@ -1,5 +1,4 @@
 node_modules
-config/keys.js
 config/keys.dev.js
 uploads
 client/node_modules
