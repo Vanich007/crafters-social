@@ -29,7 +29,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(cors())
 
-app.use('/api/auth', authRoutes) 
+app.use('/auth', authRoutes) 
 app.use('/api/dialogs', dialogsRoutes) 
 app.use('/api/posts',postsRoutes) 
 app.use('/api/profile',profileRoutes) 
