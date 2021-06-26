@@ -2,7 +2,7 @@ import { onGetProjects,onAddProject,onDeleteProject,onUpdateProject } from '../.
 import {onGetPosts} from '../../reducers/profileReducer'
 export const getProjectById = userId => {
     return dispatch => {
-      let url=  "/api/projects/"+userId
+      let url=  "http://localhost:5000/api/projects/"+userId
       return fetch(url, {
         method: "GET",
         headers: {
@@ -27,7 +27,7 @@ export const getProjectById = userId => {
   export const getProjectByUserId = userId => {
     return dispatch => {
       if (!userId||userId==='undefined') return null
-      let url=  `/api/projects/user/?userId=${userId}`
+      let url=  `http://localhost:5000/api/projects/user/?userId=${userId}`
       return fetch(url, {
         method: "GET",
         headers: {
@@ -47,7 +47,7 @@ export const getProjectById = userId => {
 }
   export const deleteProjectById = projectId => {
     return dispatch => {
-      let url=  "/api/projects/"+projectId
+      let url=  "http://localhost:5000/api/projects/"+projectId
       return fetch(url, {
         method: "DELETE",
         headers: {
@@ -67,7 +67,7 @@ export const getProjectById = userId => {
 
 export function sendUserProject(project) {
   return dispatch => { 
-    return fetch("/api/projects", {
+    return fetch("http://localhost:5000/api/projects", {
       method: "POST",
       headers: {
         'Authorization': localStorage.token
@@ -88,7 +88,7 @@ export function sendUserProject(project) {
 }
 export function updateUserProject(projectId,project) {
   return dispatch => { 
-    const url="/api/projects/"+projectId
+    const url="http://localhost:5000/api/projects/"+projectId
     return fetch(url, {
       method: "PATCH",
       headers: {
@@ -110,7 +110,7 @@ export function updateUserProject(projectId,project) {
 }
 export function likeProjectById(id) {
   return dispatch => {
-    let url = "/api/projects/like/" + id
+    let url = "http://localhost:5000/api/projects/like/" + id
     return fetch(url, {
       method: "PATCH",
       headers: {
@@ -135,7 +135,7 @@ export function likeProjectById(id) {
 }
 export function unlikeProjectById(id) {
   return dispatch => {
-    let url = "/api/projects/unlike/" + id
+    let url = "http://localhost:5000/api/projects/unlike/" + id
     return fetch(url, {
       method: "PATCH",
       headers: {
