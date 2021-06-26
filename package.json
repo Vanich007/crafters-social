@@ -23,9 +23,9 @@
   "scripts": {
     "server": "nodemon index",
     "start": "node index",
-    "client-install":"npm install --prefix client",
-    "client":"npm run start --prefix client",
-    "dev":"concurrently \"npm run server\" \"npm run client\""
+    "client-install": "npm install --prefix client",
+    "client": "npm run start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "",
   "license": "ISC"
