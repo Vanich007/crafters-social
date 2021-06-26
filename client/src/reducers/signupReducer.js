@@ -19,7 +19,7 @@ export default function signupReducer(state = initialState, action) {
   
 export const userPostFetch = user => {
   return dispatch => {
-    return fetch("https://localhost:5000/api/auth/register", {
+    return fetch("/api/auth/register", {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
@@ -52,7 +52,7 @@ export const logoutUser = () => ({
 //залогиниваемся*********************************************************
 export const userLoginFetch = user => {
   return dispatch => {
-    return fetch("https://localhost:5000/api/auth/login", {
+    return fetch("/api/auth/login", {
       method: "POST",
       //mode: 'no-cors',
       headers: {
@@ -79,7 +79,7 @@ export const getProfileFetch = () => {
   return dispatch => {
     const token = localStorage.token;
     if (token) {
-      return fetch("https://localhost:5000/api/auth/register", {
+      return fetch("/api/auth/register", {
         method: "GET",
         headers: {
           'Content-Type': 'application/json',
