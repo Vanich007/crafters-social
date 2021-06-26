@@ -3,37 +3,25 @@ SENDMESSAGE='SENDMESSAGE',DELETEMESSAGE='DELETEMESSAGE',GOTDIALOGS='GOTDIALOGS'
 
 const defaultstate= {
     dialogs: [{
-        _id: "6071eeed5cc3cf1754ad3fb6",
+        _id: "",
         profileImageSrc: "",
-        publicName: "Vanich007",
+        publicName: "",
         _doc: {
-            dialogDate: "2021-04-10T18:31:09.082Z",
-            lastMessage: "Привет, давно не виделись!!!",
-            targetUser: "605b733f6fd9cf1bc86adb90",
-            user: "605b733f6fd9cf1bc86adb90",
-            _id: "6071eeed5cc3cf1754ad3fb6"
+            dialogDate: "",
+            lastMessage: "",
+            targetUser: "",
+            user: "",
+            _id: ""
         }
     }],
-    messages: [{date: "2021-04-07T19:03:26.297Z",
-messageBody: "Message!!!111111111111",
+    messages: [{date: "",
+messageBody: "",
 messageImageSrc: "",
-targetUser: "605b733f6fd9cf2bc86adb90",
-user: "605b733f6fd9cf1bc86adb90",
+targetUser: "",
+user: "",
 __v: 0,
-        _id: "606e01fe8ded942ae006c375"
-    }, {date: "2021-04-07T19:04:08.903Z",
-messageBody: "Message!!!1111111111111111",
-messageImageSrc: "",
-targetUser: "605b733f6fd9cf1bc86adb90",
-user: "605b733f6fd9cf2bc86adb90",
-__v: 0,
-_id: "606e02288ded942ae006c376"},{date: "2021-04-10T18:31:08.811Z",
-messageBody: "привет1111111111111111",
-messageImageSrc: "",
-targetUser: "605b733f6fd9cf1bc86adb90",
-user: "605b733f6fd9cf1bc86adb90",
-__v: 0,
-_id: "6071eeec5cc3cf1754ad3fb5"}]
+        _id: ""
+    }]
     }   //state
   
     export default function dialogsReducer(state = defaultstate, action){

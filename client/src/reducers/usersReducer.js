@@ -4,26 +4,22 @@ const GOTSEARCHEDUSERS = 'GOTSEARCHEDUSERS', GETSELECTEDUSERPOSTS = 'GETSELECTED
 
 const defaultstate= {
         users:
-            [{profileImageSrc:'https://static.mvd.ru/upload/site1/document_news/Kaliningrad-630xx225.jpg?rnd=0.4784786219426467',
-                date:'дата регистрации',
-                status:'Здесь будет статус',
-                livingPlace:'Здесь будет место жительства',
-                publicName:'Здесь будет имя',
-            _id: '605b733f6fd9cf1bc86adb90'
+            [{profileImageSrc:'',
+                date:'',
+                status:'',
+                livingPlace:'',
+                publicName:'',
+            _id: ''
         }],
-    selectedUserPhotos: [{ photoImageSrc: 'https://static.mvd.ru/upload/site81/document_images/IMG_0581_d1-800x600.jpg' },
-        { photoImageSrc: 'https://static.mvd.ru/upload/site81/document_images/IMG_0581_d1-800x600.jpg' },
-        { photoImageSrc: 'https://static.mvd.ru/upload/site81/document_images/IMG_0581_d1-800x600.jpg' },
-          { photoImageSrc: 'https://static.mvd.ru/upload/site81/document_images/IMG_0581_d1-800x600.jpg' }
-    ],
-    selectedUserProfile:{    status: 'Здесь будет статус',
-    publicName:'Здесь будет имя', //- чьи данные профиля загружены
-    livingPlace:'Здесь будет место жительства',
-    profileImageSrc:'https://static.mvd.ru/upload/site1/document_news/Kaliningrad-630xx225.jpg?rnd=0.4784786219426467',
-    date:'дата регистрации',_id:'605b733f6fd9cf1bc86adb90'},
+    selectedUserPhotos: [{ photoImageSrc: '' }],
+    selectedUserProfile:{    status: '',
+    publicName:'', //- чьи данные профиля загружены
+    livingPlace:'',
+    profileImageSrc:'',
+    date:'',_id:''},
     selectedUserPosts: [],
      
-    selectedUser: '605b733f6fd9cf1bc86adb90'
+    selectedUser: ''
     }
   
 const userReducer=(state = defaultstate, action)=>{

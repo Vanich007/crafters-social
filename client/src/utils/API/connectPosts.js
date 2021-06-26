@@ -3,7 +3,7 @@ import {onUpdateComment} from '../../reducers/profileReducer'
 
 export function clearCommentById(id) {
   return dispatch => {
-    let url = "http://localhost:5000/api/posts/comments/" + id
+    let url = "/api/posts/comments/" + id
     return fetch(url, {
       method: "DELETE",
       headers: {
@@ -28,7 +28,7 @@ export function clearCommentById(id) {
 
 export const searchPostsByKeyword = (keyword,user='') => {
     return dispatch => {
-      let url=  `http://localhost:5000/api/posts/search/?substring=${keyword}&user=${user}&limit=100`
+      let url=  `/api/posts/search/?substring=${keyword}&user=${user}&limit=100`
       
       return fetch(url, {
         method: "GET",
@@ -49,7 +49,7 @@ export const searchPostsByKeyword = (keyword,user='') => {
 }
 export const getLenta= () => {
     return dispatch => {
-      let url=  "http://localhost:5000/api/lenta/"
+      let url=  "/api/lenta/"
       
       return fetch(url, {
         method: "GET",
@@ -73,7 +73,7 @@ export const getLenta= () => {
 
 export function likeCommentById(id) {
   return dispatch => {
-    let url = "http://localhost:5000/api/posts/comments/like/" + id
+    let url = "/api/posts/comments/like/" + id
     return fetch(url, {
       method: "PATCH",
       headers: {
@@ -97,7 +97,7 @@ export function likeCommentById(id) {
 }
 export function unlikeCommentById(id) {
   return dispatch => {
-    let url = "http://localhost:5000/api/posts/comments/unlike/" + id
+    let url = "/api/posts/comments/unlike/" + id
     return fetch(url, {
       method: "PATCH",
       headers: {
@@ -122,7 +122,7 @@ export function unlikeCommentById(id) {
 
 export function likePostById(id,lookingProject=null) {
   return dispatch => {
-    let url = "http://localhost:5000/api/posts/like/" + id
+    let url = "/api/posts/like/" + id
     return fetch(url, {
       method: "PATCH",
       headers: {
@@ -146,7 +146,7 @@ export function likePostById(id,lookingProject=null) {
 }
 export function unlikePostById(id,lookingProject=null) {
   return dispatch => {
-    let url = "http://localhost:5000/api/posts/unlike/" + id
+    let url = "/api/posts/unlike/" + id
     return fetch(url, {
       method: "PATCH",
       headers: {
@@ -170,7 +170,7 @@ export function unlikePostById(id,lookingProject=null) {
 }
 export const getCommentsByPostId = postId => {
     return dispatch => {
-      let url=  `http://localhost:5000/api/posts/comments/?postId=${postId}&limit=100`
+      let url=  `/api/posts/comments/?postId=${postId}&limit=100`
       return fetch(url, {
         method: "GET",
         headers: {
@@ -194,7 +194,7 @@ export const getCommentsByPostId = postId => {
 
 export const sendPostComment = comment => {
     return dispatch => {
-      return fetch("http://localhost:5000/api/posts/comments", {
+      return fetch("/api/posts/comments", {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
@@ -216,7 +216,7 @@ export const sendPostComment = comment => {
 }
   export const deletePostById = photoId => {
     return dispatch => {
-      let url=  "http://localhost:5000/api/posts/"+photoId
+      let url=  "/api/posts/"+photoId
       return fetch(url, {
         method: "DELETE",
         headers: {
@@ -239,7 +239,7 @@ export const sendPostComment = comment => {
 
 export function sendUserPost(post) {
   return dispatch => { 
-    return fetch("http://localhost:5000/api/posts", {
+    return fetch("/api/posts", {
       method: "POST",
       headers: {
         'Authorization': localStorage.token
@@ -261,7 +261,7 @@ export function sendUserPost(post) {
 }
 export function updateUserPost(postId,post) {
   return dispatch => { 
-    const url="http://localhost:5000/api/posts/"+postId
+    const url="/api/posts/"+postId
     return fetch(url, {
       method: "PATCH",
       headers: {
@@ -285,7 +285,7 @@ export function updateUserPost(postId,post) {
   export const getPostsByUserId = userId => {
     return dispatch => {
       if (!userId||userId==='undefined') return null
-      let url=  `http://localhost:5000/api/posts/?userId=${userId}&limit=50&offset=0`
+      let url=  `/api/posts/?userId=${userId}&limit=50&offset=0`
       return fetch(url, {
         method: "GET",
         headers: {
@@ -308,7 +308,7 @@ export function updateUserPost(postId,post) {
 
  export const getPostById = id => {
     return dispatch => {
-      let url=  "http://localhost:5000/api/posts/id/"+id
+      let url=  "/api/posts/id/"+id
       return fetch(url, {
         method: "GET",
         headers: {

@@ -2,7 +2,7 @@ import { onDeletePhotoById,onGetPhoto} from '../../reducers/profileReducer'
 
 export function userPhotoSend(file) {
   return dispatch => { 
-    return fetch("http://localhost:5000/api/photo", {
+    return fetch("/api/photo", {
       method: "POST",
       headers: {
         'Authorization': localStorage.token
@@ -27,7 +27,7 @@ export function userPhotoSend(file) {
   export const getPhotoByUserId = userId => {
     return dispatch => {
       if (!userId||userId==='undefined') return null
-      let url=  `http://localhost:5000/api/photo/?userId=${userId}`
+      let url=  `/api/photo/?userId=${userId}`
       
       return fetch(url, {
         method: "GET",
@@ -50,7 +50,7 @@ export function userPhotoSend(file) {
 }
   export const deletePhotoById = photoId => {
     return dispatch => {
-      let url=  "http://localhost:5000/api/photo/"+photoId
+      let url=  "/api/photo/"+photoId
       return fetch(url, {
         method: "DELETE",
         headers: {

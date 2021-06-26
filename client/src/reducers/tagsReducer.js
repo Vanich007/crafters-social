@@ -3,7 +3,7 @@ const GOTSEARCHEDTAGS = 'GOTSEARCHEDTAGS', ADDTAG = 'ADDTAG',
     GETSELECTEDUSERPHOTOS='GETSELECTEDUSERPHOTOS'
 
 const defaultstate = {
-    tags: ['Калашников' , 'Поделки из фанеры'],
+    tags: [''],
         searchedTag:''
     }
   
