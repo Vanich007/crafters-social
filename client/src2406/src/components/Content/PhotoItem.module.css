@@ -1,0 +1,45 @@
+.centerform{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.enterdata{
+    width: 100%;
+}
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 500px;
+    width: 100%;
+    
+	font-size: 13px;
+	line-height: 18px;
+    color: black;
+    background-color:#fff;
+    margin: 3px;
+}
+
+.date{
+    display: block;
+    color:grey;
+    align: right;
+    font-size: xx-small;
+    /* align-self:flex-end */
+    
+}
+
+
+
+.prew_img{
+    margin: 3px;
+    max-width: 200px; 
+    max-height: 200px;
+}
+
+  .photo img{
+      height: 150px;
+      width: 200px;
+  }

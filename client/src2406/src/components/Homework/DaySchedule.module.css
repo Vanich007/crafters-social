@@ -1,0 +1,94 @@
+.header{
+    color:rgb(25, 25, 56);
+    //background-color: rgb(174, 222, 245);
+}
+.table{
+display: flex;
+flex-direction: column;
+}
+
+
+.tableitem{
+display: flex;
+flex-direction: column;
+background-color: cornsilk;
+}
+.tableitemheader{
+background-color: #195588;
+color: cornsilk;
+font-size: large;
+padding: 5px;
+font-style: oblique;
+}
+.tableitembody{
+    position: relative;
+
+}
+.lesson{
+    
+}
+.onelesson{
+padding: 15px 3px 3px;
+}
+.lessonname{
+    position: absolute;
+left:0;
+right:0;
+    float:left;
+    font-size: 0.8em;
+    text-transform: capitalize ;
+}
+
+
+.tableitem {
+  margin-bottom: 8px;
+  padding:0;
+  list-style: none;
+  counter-reset: li;
+}
+.tableitem li {
+  position: relative;
+  border: 2px solid #195588;
+  background: #eff3f7;
+  padding: 15px 19px 15px 27px;
+  margin: 12px 0 12px 40px;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+}
+.tableitem li:hover {
+  background: #FFF;
+}
+.tableitem li:before {
+  line-height: 32px;
+  position: absolute;
+  top: 4px;
+  left: -39px;
+  width: 39px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: #f9f5f5;
+  background: #275b88;
+  counter-increment: li;
+  content: counter(li);
+  -webkit-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+}
+.tableitem li:hover:before {
+  width:46px;
+}
+.tableitem li:after {
+  position: absolute;
+  left: 0;
+  top: 4px;
+  content: "";
+  height: 0;
+  width: 0;
+  border: 16px solid transparent;
+  border-left-color: #275b88;
+  -webkit-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+}
+.tableitem li:hover:after {
+  margin-left: 6px;
+}

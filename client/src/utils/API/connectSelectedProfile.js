@@ -10,7 +10,7 @@ export function loadSelectedProfile(userId) {
   export const getSelectedUserProfileByUserId = userId => {
     return dispatch => {
       if (userId===undefined||userId===null) return null
-      let url=  "http://localhost:5000/api/profile/"+userId
+      let url=  "/api/profile/"+userId
       return fetch(url, {
         method: "GET",
         headers: {
@@ -35,7 +35,7 @@ export function loadSelectedProfile(userId) {
   
 export const getSelectedUserPostsByUserId = userId => {
     return dispatch => {
-      let url=  `http://localhost:5000/api/posts/?userId=${userId}&limit=50&offset=0`
+      let url=  `/api/posts/?userId=${userId}&limit=50&offset=0`
       return fetch(url, {
         method: "GET",
         headers: {
@@ -58,7 +58,7 @@ export const getSelectedUserPostsByUserId = userId => {
 
   export const getSelectedUserPhotoByUserId = userId => {
     return dispatch => {
-      let url=   `http://localhost:5000/api/photo/?userId=${userId}`
+      let url=   `/api/photo/?userId=${userId}`
       return fetch(url, {
         method: "GET",
         headers: {

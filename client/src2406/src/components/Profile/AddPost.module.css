@@ -1,0 +1,32 @@
+
+.enterdata{
+padding:10px;
+  display: flex;
+flex-direction: row;
+justify-content: stretch;
+}
+
+
+.nodisplay{
+  display:none;
+}
+
+.tags{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.tags li{
+      color: #2e6da4;
+    background-color: #fff;
+    border: 1px solid #2e6da4;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 4px;
+}
+.down_buttons{
+  display: flex;
+  flex-direction: row;
+justify-content: space-between;
+}

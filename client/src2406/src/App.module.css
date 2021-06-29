@@ -1,0 +1,32 @@
+.wrapper{
+  display: flex;
+  width: 100%;
+}
+.App {
+  display: flex;
+  flex-direction: column;
+  max-width: 960px;
+  margin: auto;
+}
+
+.Main{
+    display: flex;
+  flex-direction: row;
+}
+.Nav{
+  width:200px;
+}
+.Content{
+  max-width:800px;
+  height: 100%;
+  width: 100%;
+
+}
+.Header{
+  width: 100%;
+  min-height: 100px;
+}
+.Footer{
+  width: 100%;
+  min-height: 100px;
+}
