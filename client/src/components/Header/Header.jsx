@@ -1,4 +1,4 @@
-import React from 'react'
+﻿import React,{useState} from 'react'
 import { Link } from 'react-router-dom'
 // import Login from '../Nav/Login';
 
@@ -55,7 +55,8 @@ function Header({  currentUser, ...props }) {
        Пользователь: {currentUser.username}
         <button onClick={GoLogout}>Logout</button></div>
                 
-</a>           
+</a> 
+{/* <Ping />           */}
               {/* <a href="/common/saml/destroy_session" className="btn btn-primary" data-method="post" rel="nofollow"><span className="glyphicon glyphicon-log-out" title="Выход"></span></a> */}
             </div>
 
@@ -83,4 +84,49 @@ function Header({  currentUser, ...props }) {
   );
 }
 
+
+function Ping(props) {
+ const pingUrl = url => {
+
+ return fetch(url, {
+ method: "POST",
+ headers: {
+ 'Content-Type': 'application/json',
+ 'Authorization':localStorage.token
+ // ,
+ // Accept: 'application/json'
+ },
+ body: JSON.stringify("")
+ })
+ .then(resp => resp.json())
+ .then(data => {
+
+ if (data.message) {
+
+ //Тут прописываем логику
+ } else {
+ // localStorage.setItem("token", data.jwt)
+ // dispatch(loginUser(data.user))
+ }
+ })
+
+ }
+ let [urlState, setUrlState]=useState('http://127.0.0.1')
+ const handleChange = event => {
+ switch (event.target.name) {
+ case 'urlState': setUrlState(event.target.value);
+ break
+ }
+}
+ return <>
+
+ <input
+ name='urlState'
+ placeholder='Пинганем адрес'
+ value={urlState}
+ onChange={handleChange}
+ />
+ <button onClick={()=>pingUrl(urlState)}>Ping</button>
+ </>
+}
 export default Header;

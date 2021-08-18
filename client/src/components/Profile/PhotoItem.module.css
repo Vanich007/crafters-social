@@ -48,7 +48,7 @@ justify-content: center;
 } */
 
   .like__button{
-    background: #337ab7 no-repeat url('http://localhost:3000/images/like.png');
+    background: #337ab7 no-repeat url('https://craftt.ru/images/like.png');
     background-position: center;
     padding:0 20px;
     /* width: 50px; */
@@ -59,7 +59,7 @@ justify-content: center;
   opacity: .3;
   }
   .like__button_active{
-    background: #337ab7 no-repeat url('http://localhost:3000/images/like.png');
+    background: #337ab7 no-repeat url('https://craftt.ru/images/like.png');
     background-position: center;
     padding:0 20px;
     /* width: 50px; */
@@ -73,7 +73,7 @@ justify-content: center;
     position: absolute;
     right:10px;
     top:10px;
-    background: #337ab7 no-repeat url('http://localhost:3000/images/delete.png');
+    background: #337ab7 no-repeat url('https://craftt.ru/images/delete.png');
     background-position: center;
     padding:0 20px;
     /* width: 50px; */

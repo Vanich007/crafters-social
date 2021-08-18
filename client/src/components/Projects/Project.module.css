@@ -150,7 +150,7 @@ padding: 5px;
   top:0;
 }
 .like__button{
-  background: #337ab7 no-repeat url('http://localhost:3000/images/like.png');
+  background: #337ab7 no-repeat url('https://craftt.ru/images/like.png');
   background-position: center;
   padding:0 20px;
   /* width: 50px; */
@@ -161,7 +161,7 @@ float:left;
 opacity: .3;
 }
 .like__button_active{
-  background: #337ab7 no-repeat url('http://localhost:3000/images/like.png');
+  background: #337ab7 no-repeat url('https://craftt.ru/images/like.png');
   background-position: center;
   padding:0 20px;
   /* width: 50px; */
@@ -172,7 +172,7 @@ float:left;
 opacity: 1;
 }
 .delete__button{
-  background: #337ab7 no-repeat url('http://localhost:3000/images/delete.png');
+  background: #337ab7 no-repeat url('https://craftt.ru/images/delete.png');
   background-position: center;
   padding:0 20px;
   /* width: 50px; */
@@ -182,7 +182,7 @@ opacity: 1;
 float:left;
 }
 .edit__button{
-  background: #337ab7 no-repeat url('http://localhost:3000/images/edit1.png');
+  background: #337ab7 no-repeat url('https://craftt.ru/images/edit1.png');
   background-position: center;
   padding:0 20px;
   /* width: 50px; */
@@ -193,7 +193,7 @@ float:left;
 }
 
 .add_project_button{
-  background: #337ab7 no-repeat url('http://localhost:3000/images/post_add.png');
+  background: #337ab7 no-repeat url('https://craftt.ru/images/post_add.png');
   background-position: center;
   padding:0 20px;
   width: 70px;

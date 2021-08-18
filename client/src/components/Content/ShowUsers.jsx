@@ -12,7 +12,7 @@ class ShowUsers extends React.Component{
       <Link to={'/users/'+this.props.userId}><div className={s.userwrapper}>
       <div className={s.user}>
       <div className={s.avatarplace}>       
-      <img src={ (profileImageSrc?profileImageSrc:'/uploads/images/guestavatar.gif')} className={s.avatar}></img>
+      <img src={ (profileImageSrc?`${window.location.protocol}//${window.location.hostname}/${profileImageSrc}`:`${window.location.protocol}//${window.location.hostname}/images/guestavatar.gif`)} className={s.avatar}></img>
       </div> 
       <span className={s.name} >{this.props.publicName}</span>
       <span className={s.klass}>{this.props.status}</span>

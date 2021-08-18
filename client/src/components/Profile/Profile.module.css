@@ -13,7 +13,7 @@
   position: relative;
 }
 .add_post_button{
-  background: #337ab7 no-repeat url('http://localhost:3000/images/post_add.png');
+  background: #337ab7 no-repeat url('https://craftt.ru/images/post_add.png');
   background-position: center;
   padding:0 20px;
   width: 70px;

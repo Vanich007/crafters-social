@@ -8,12 +8,13 @@ module.exports.getAll = function (req, res) {
 }
 
 module.exports.getMyDialogs = async function (req, res) {
-    const id = req.user.id
-    if(id==='undefined') return null
+    
+    try {    const id = req.user.id
+    if(id==='undefined'||id.length!==24) throw 'bad id'
     
    
-    let o_id = new ObjectId(id);
-    try {        const dialogs = await Dialogs.find({   //req.params.id - id страницы со списком сообщений
+    let o_id = new ObjectId(id);   
+     const dialogs = await Dialogs.find({   //req.params.id - id страницы со списком сообщений
         $or:[{user:o_id},{targetUser:o_id}]
                 
               //  targetUser:targetid

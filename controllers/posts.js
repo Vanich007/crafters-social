@@ -1,4 +1,4 @@
-const errorHandler = require("../utils/errorHandler")
+﻿const errorHandler = require("../utils/errorHandler")
 const Post = require('../models/Posts')
 const Tag=require('../models/Tags')
 const Profile=require('../models/Profile')
@@ -30,16 +30,17 @@ module.exports.getPostsBySubstring = async function (req, res) {
     if (req.query.substring!='undefined')
     { searchString = new RegExp(req.query.substring.toLowerCase(), "i")
     //`${req.query.substring}` 
-} else return null
+} else 
+ errorHandler(res,'bad substring')
     
     if (searchString)  search = { postTitle: { $regex: searchString } }
     let user=''
-    if (req.query.user&&req.query.user!=='')
+    if (req.query.user&&req.query.user.length===24)
     {
         const o_id = new ObjectId(req.query.user)
         search.user=o_id
     } 
-    //console.log('searchstring',search)
+
     try {
         const Posts = await Post.find(search)
         .sort({ date: -1 })
@@ -48,11 +49,26 @@ module.exports.getPostsBySubstring = async function (req, res) {
 
         let newPosts=[]//Posts.map(post => insertProfilesToPost(post))
 
-        for (let post of Posts) {
-           let publicName=await insertProfilesToPost(post)
-           post._doc.publicName=publicName
-           newPosts=[...newPosts,post._doc]
-        }
+        // for (let post of Posts) {
+        //    let publicName=await insertProfilesToPost(post)
+        //    post._doc.publicName=publicName
+        //    newPosts=[...newPosts,post._doc]
+        // }
+
+let promicePosts= await Promise.all(Posts.map
+    (async function (item){ //соберем данные по юзерам
+    
+    let i={...item}
+  const publicName=await insertProfilesToPost(item)
+           item._doc.publicName=publicName
+           newPosts=[...newPosts,item._doc]
+return item
+
+
+    }))
+   
+    newPosts=promicePosts.map(item=>item._doc)
+
         res.status(200).json(newPosts)
         } catch (e) {
         errorHandler(res,e)
@@ -62,10 +78,8 @@ module.exports.getPostsBySubstring = async function (req, res) {
        async function insertProfilesToPost(post) {
       
         let profile=await profileController.returnProfileById(post.user)
-        //console.log('profile',profile)
-        // let post1={...post,publicName:profile.publicName}
-        // console.log('post1',post1)
-        return profile.publicName
+console.log('profile',profile)
+        return (profile.publicName? profile.publicName:'')
        
        }
        
@@ -74,22 +88,27 @@ module.exports.getPostsBySubstring = async function (req, res) {
 
 module.exports.getCommentsByPostId = async function (req, res) {
      const id = req.query.postId
-    if(id===undefined) return null
-    let o_id = new ObjectId(id);
-    let query = { postId: o_id }
+     
+    
     // if (req.query.start) {query.date = {$gte:req.query.start}}
     // if (req.query.end) { //дата конца поиска
     // if(!query.date){query.date={}}
     // query.date[$lte] = req.query.end}
 
     
-    try { const comments = await PostComment.find(query)
+    try {
+        
+    if (!id || id.length !== 24) throw 'bad id'
+        let o_id = new ObjectId(id);
+    let query = { postId: o_id }
+        const comments = await PostComment.find(query)
         // .sort({ date: -1 })
         // .skip(+req.query.offset)
         // .limit(+req.query.limit)
 
     let readyComments=[]
-    let promiceComments= await Promise.all(comments.map(async function (item){ //соберем данные по юзерам
+    let promiceComments= await Promise.all(comments.map
+    (async function (item){ //соберем данные по юзерам
     
     let i={...item}
     let u_id = new ObjectId(item.user);
@@ -113,36 +132,11 @@ module.exports.getCommentsByPostId = async function (req, res) {
    
 
    
-// module.exports.getCommentsByPostId = async function (req, res) {
-//     const id = req.params.postId
-//     if(id===undefined) return null
-//     let o_id = new ObjectId(id);
-//     try {        const comments = await PostComment.find({    //req.params.id - id страницы со списком сообщений
-//         postId: o_id
-//     })
-//         let readyComments=[]
-//         let promiceComments= await Promise.all(comments.map(async function (item){        //соберем данные по юзерам
 
-//             let i={...item}
-//             let u_id = new ObjectId(item.user);
-//               const profile = await Profile.findOne({    //req.params.id - id страницы со списком сообщений
-//                 user:u_id})
-//                 i._doc.publicName=profile.publicName
-//                 i._doc.profileImageSrc=profile.profileImageSrc
-//                 return i
-//     }))
-    
-//     readyComments=promiceComments.map(item=>item._doc)
-
-//         res.status(200).json(readyComments)
-        
-//     } catch (e) {
-//         errorHandler(res,e)
-//     }
-// }
 
 module.exports.create = async function (req, res) {
     try {
+        //console.log('post file=',req.file)
         const newpost =  new Post({
             user:req.user.id,
             postBody: req.body.postBody,
@@ -164,12 +158,12 @@ module.exports.create = async function (req, res) {
 
 
 
-module.exports.getPostByUserId = async function (req, res) {
-    const id = req.query.userId
-    if(id===undefined) return null
-    let o_id = new ObjectId(id);
+module.exports.getPostByUserId = async function (req, res) {    
+    try { 
+        const id = req.query.userId
+    if (!id || id.length !== 24) throw 'getPostByUserId bad id'
+let o_id = new ObjectId(id);
     let query = { user: o_id }
-    
     if (req.query.start) {
     query.date = {
     $gte:req.query.start //больше или равно
@@ -178,21 +172,30 @@ module.exports.getPostByUserId = async function (req, res) {
     if (req.query.end) { //дата конца поиска
     if(!query.date){query.date={}}
     query.date[$lte] = req.query.end //меньше или равно
-   
     }
-    try { const posts = await Post.find(query)
+
+        const posts = await Post.find(query)
         .sort({ date: -1 })
         .skip(+req.query.offset)
         .limit(+req.query.limit)
    
 
         let newPosts=[]//Posts.map(post => insertProfilesToPost(post))
+console.log('posts mass',posts)
+   let promicePosts= await Promise.all(posts.map
+    (async function (item){ //соберем данные по юзерам
+    
+    let i={...item}
+  const publicName=await insertProfilesToPost(item)
+console.log('item',item)
+           item._doc.publicName=publicName
+           newPosts=[...newPosts,item._doc]
+return item
 
-        for (let post of posts) {
-           let publicName=await insertProfilesToPost(post)
-           post._doc.publicName=publicName
-           newPosts=[...newPosts,post._doc]
-        }
+
+    }))
+   
+    newPosts=promicePosts.map(item=>item._doc)
         res.status(200).json(newPosts)
         
     } catch (e) {
@@ -202,19 +205,27 @@ module.exports.getPostByUserId = async function (req, res) {
 
 module.exports.getPostById = async function (req, res) {
     const id = req.params.id
-    if(id===undefined) return null
-    let o_id = new ObjectId(id);
-    try {        const posts = await Post.find({    //req.params.id - id страницы со списком сообщений
+    
+    
+    try {     if (!id||id.length!==24) throw 'getPostById bad id - '+id
+    let o_id = new ObjectId(id);   
+    const posts = await Post.find({    //req.params.id - id страницы со списком сообщений
         _id: o_id
         })
         
         let newPosts=[]//Posts.map(post => insertProfilesToPost(post))
 
-        for (let post of posts) {
-           let publicName=await insertProfilesToPost(post)
-           post._doc.publicName=publicName
-           newPosts=[...newPosts,post._doc]
-        }
+       let promicePosts= await Promise.all(posts.map
+    (async function (item){ //соберем данные по юзерам
+    
+    let i={...item}
+  const publicName=await insertProfilesToPost(item)
+           item._doc.publicName=publicName
+           newPosts=[...newPosts,item._doc]
+return item
+    }))
+   
+    newPosts=promicePosts.map(item=>item._doc)
         res.status(200).json(newPosts)
     } catch (e) {
         errorHandler(res,e)
@@ -223,20 +234,31 @@ module.exports.getPostById = async function (req, res) {
 
 module.exports.getPostsByTag = async function (req, res) {
     const tag = req.query.tag
-    if(id===undefined) return null
+  
     
-    try {const posts = await Post.find({    //req.params.id - id страницы со списком сообщений
+    try {
+          if(id===undefined) throw 'tag undefined'
+        
+        const posts = await Post.find({    //req.params.id - id страницы со списком сообщений
         postTags: tag
         }) 
         .skip(+req.query.offset)
         .limit(+req.query.limit)
         let newPosts=[]//Posts.map(post => insertProfilesToPost(post))
 
-        for (let post of posts) {
-           let publicName=await insertProfilesToPost(post)
-           post._doc.publicName=publicName
-           newPosts=[...newPosts,post._doc]
-        }
+   let promicePosts= await Promise.all(posts.map
+    (async function (item){ //соберем данные по юзерам
+    
+    let i={...item}
+  const publicName=await insertProfilesToPost(item)
+           item._doc.publicName=publicName
+           newPosts=[...newPosts,item._doc]
+return item
+
+
+    }))
+   
+    newPosts=promicePosts.map(item=>item._doc)
         res.status(200).json(newPosts)
         
     } catch (e) {
@@ -279,8 +301,10 @@ module.exports.getAllPosts = async function (req, res) {
 }
 
 module.exports.remove = async function (req, res) {
-    let o_id = new ObjectId(req.params.id)
-    try {
+    
+    try {let id=req.params.id
+    if (!id || id.length !== 24) throw 'bad id'
+    let o_id = new ObjectId(id)
         await Post.remove({ _id: o_id })
          res.status(200).json({deleted:req.params.id})
         
@@ -303,7 +327,8 @@ module.exports.update=async function(req, res) {
         if (req.file) {
             updated.postImageSrc=req.file.path
         }
-        const targetPost =req.params.id
+        const targetPost = req.params.id
+        if (!targetPost||targetPost.length!==24) throw 'bad id'
         let o_id = new ObjectId(targetPost)
         let updPost = await Post.findOneAndUpdate(
             { _id: o_id },
@@ -322,11 +347,11 @@ module.exports.update=async function(req, res) {
 }
 
 module.exports.likePostById = async function (req, res) {
-    const user= req.user.id
+    try { const user= req.user.id
     const targetPost = req.params.id
+    if (!targetPost||targetPost.length!==24) throw 'bad id'
     let o_id = new ObjectId(targetPost)
         const updated = {likes:user}
-        try {
             const updPost = await Post.updateOne(
                 {_id: o_id},
                 { $push: updated }
@@ -335,8 +360,8 @@ module.exports.likePostById = async function (req, res) {
               let posts = await Post.findOne(    //req.params.id - id страницы со списком сообщений
                 {_id: o_id}
                 )
-                let publicName=await insertProfilesToPost(posts)
-                posts._doc.publicName=publicName
+            
+                posts._doc.publicName=await insertProfilesToPost(posts)
               res.status(200).json(posts._doc)
          
               
@@ -345,11 +370,12 @@ module.exports.likePostById = async function (req, res) {
     }
 }
 module.exports.unlikePostById=async function(req, res) {
-    const user= req.user.id
+    
+        try {const user= req.user.id
     const targetPost = req.params.id
+    if (!targetPost||targetPost.length!==24) throw 'bad id'
     let o_id = new ObjectId(targetPost)
         const updated = {likes:user}
-        try {
             const updPost = await Post.updateOne(
                 {_id: o_id},
                 { $pull: updated }
@@ -358,8 +384,7 @@ module.exports.unlikePostById=async function(req, res) {
               let posts = await Post.findOne(    //req.params.id - id страницы со списком сообщений
                 {_id: o_id}
                 )
-                let publicName=await insertProfilesToPost(posts)
-                posts._doc.publicName=publicName
+                posts._doc.publicName=await insertProfilesToPost(posts)
               res.status(200).json(posts._doc)
          
     } catch (e) {
@@ -368,12 +393,12 @@ module.exports.unlikePostById=async function(req, res) {
 }
 
 module.exports.likeCommentById = async function (req, res) {
-    const user= req.user.id
+   
+        try { const user= req.user.id
     const id = req.params.id
-    
+    if (!id||id.length!==24) throw 'bad id'
     let o_id = new ObjectId(id)
         const updated = {likes:user}
-        try {
             let updComment1 = await PostComment.updateOne(
                 {_id: o_id},
                 { $push: updated }
@@ -388,11 +413,13 @@ module.exports.likeCommentById = async function (req, res) {
     }
 }
 module.exports.unlikeCommentById=async function(req, res) {
-    const user=req.user.id
+   
+        try { const user=req.user.id
     const targetComment = req.params.id
+    if (!targetComment||targetComment.length!==24) throw 'bad id'
     let o_id = new ObjectId(targetComment)
+    
         const updated = {likes:user}
-        try {
             const updComment1 = await PostComment.updateOne(
                 {_id: o_id},
                 { $pull: updated }
@@ -407,11 +434,12 @@ module.exports.unlikeCommentById=async function(req, res) {
 }
 
 module.exports.clearCommentById=async function(req, res) {
-    const user=req.user.id
+
+        try {    const user=req.user.id
     const targetComment = req.params.id
+    if (!targetComment||targetComment.length!==24) throw 'bad id'
     let o_id = new ObjectId(targetComment)
         const updated = {commentImageSrc:'',commentBody:'Комментарий удален'}
-        try {
             const updComment = await PostComment.findOneAndUpdate(
                 {_id: o_id},
                 {$set: updated},
@@ -425,10 +453,11 @@ module.exports.clearCommentById=async function(req, res) {
 
 
 module.exports.returnPostById = async function (id) {
-    
+   
+        try {  if (!id||id.length!==24) throw 'bad id'
         let o_id = new ObjectId(id);
-    let post
-        try {         post = await Post.findOne({    //req.params.id - id страницы со списком сообщений
+    let post   
+         post = await Post.findOne({    //req.params.id - id страницы со списком сообщений
         _id: o_id
         })
         

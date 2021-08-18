@@ -30,12 +30,14 @@ module.exports.create = async function (req, res) {
 
 
 module.exports.getMessageById = async function (req, res) {
-    const messageId = req.params.messageId
+   
+    try {  const messageId = req.params.messageId
     const userId=req.user.id
-    
+    if (!userId || userid.length !== 24) throw 'bad userId'
+    if(!messageId||messageId.length!==24)throw 'bad messageIid'
     let o_id = new ObjectId(userId);
-    let o_messageId = new ObjectId(messageId);
-    try {        const message = await Message.findOne({    //req.params.id - id страницы со списком сообщений
+    let o_messageId = new ObjectId(messageId);  
+         const message = await Message.findOne({    //req.params.id - id страницы со списком сообщений
         user: o_id,
         Id:o_messageId
         })
@@ -47,11 +49,13 @@ module.exports.getMessageById = async function (req, res) {
 }
 
 module.exports.getMessagesByUserId = async function (req, res) {
-    const targetId = req.query.userId
+   
+    
+    try {   const targetId = req.query.userId
     const userId=req.user.id
-    
-    
-    try {  let o_id = new ObjectId(userId);
+    if (!userId || userid.length !== 24) throw 'bad id'
+    if (!targetId || targetid.length !== 24) throw 'bad id'
+    let o_id = new ObjectId(userId);
     let target_id = new ObjectId(targetId);      
         const messages = await Message.find({    //req.params.id - id страницы со списком сообщений
             $or:[{user: o_id,targetUser:target_id},
@@ -167,9 +171,11 @@ let dialogUpdate = async function (dialogId,message) {
 }
 const getMyDialog = async function (userId,targetUserId) {
  
+    try {if (!userId || userid.length !== 24) throw 'bad user id'
     let o_id = new ObjectId(userId);
+    if (!target_id || target_id.length !== 24) throw 'bad target id'
     let target_id = new ObjectId(targetUserId);
-    try {        const dialogs = await Dialogs.findOne({    //req.params.id - id страницы со списком сообщений
+            const dialogs = await Dialogs.findOne({    //req.params.id - id страницы со списком сообщений
         $or:[{user:o_id, targetUser:target_id},
             {user:target_id,targetUser:o_id}]
         })

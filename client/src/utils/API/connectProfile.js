@@ -1,10 +1,10 @@
-import {onGetProfile,onFollow,onUnfollow} from '../../reducers/profileReducer'
+﻿import {onGetProfile,onFollow,onUnfollow} from '../../reducers/profileReducer'
 import {onGetSearchedProfiles} from '../../reducers/usersReducer'
 import {getPostsByUserId} from './connectPosts'
 
 export function follow(user) {
   return dispatch => {
-    let url = "http://localhost:5000/api/profile/follow/" + user
+    let url = "/api/profile/follow/" + user
     return fetch(url, {
       method: "PATCH",
       headers: {
@@ -28,7 +28,7 @@ export function follow(user) {
 }
 export function unfollow(user) {
   return dispatch => {
-    let url = "http://localhost:5000/api/profile/unfollow/" + user
+    let url = "/api/profile/unfollow/" + user
     return fetch(url, {
       method: "DELETE",
       headers: {
@@ -53,7 +53,7 @@ export function unfollow(user) {
 
   export const searchProfileByKeyword = keyword => {
     return dispatch => {
-      let url=  "http://localhost:5000/api/profile/?search="+keyword
+      let url=  "/api/profile/?search="+keyword
       
       return fetch(url, {
         method: "GET",
@@ -79,7 +79,7 @@ export function unfollow(user) {
   export const getProfileByUserId = userId => {
     return dispatch => {
       if (!userId||userId==='undefined') return null
-      let url=  "http://localhost:5000/api/profile/"+userId
+      let url=  "/api/profile/"+userId
         return fetch(url, {
         method: "GET",
         headers: {
@@ -101,7 +101,7 @@ export function unfollow(user) {
 
 export const updateProfile = (user) => {
     return dispatch => {
-      let url=  "http://localhost:5000/api/profile"
+      let url=  "/api/profile"
       return fetch(url, {
         method: "PATCH",
         headers: {
@@ -125,7 +125,7 @@ export const updateProfile = (user) => {
 
 export function userProfileSend(file) {
   return dispatch => {
-    let url = "http://localhost:5000/api/profile"
+    let url = "/api/profile"
     return fetch(url, {
       method: "PATCH",
       headers: {

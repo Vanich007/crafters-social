@@ -42,7 +42,7 @@ const DialogItem = (props) => {
     return <Link to={'/dialogs/'+props.targetUserId}>
          <div className={s.dialogitem}>
         <div className={s.avatarplace}>       
-      <img src={ (profileImageSrc?profileImageSrc:'/uploads/images/guestavatar.gif')} className={s.avatar}></img>
+        <img src={ (profileImageSrc?`${window.location.protocol}//${window.location.hostname}/${profileImageSrc}`:`${window.location.protocol}//${window.location.hostname}/images/guestavatar.gif`)} className={s.avatar}></img>
       </div> 
             <div className={s.messagearea}>
                 <div className={s.namemessage}>

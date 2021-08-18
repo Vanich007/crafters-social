@@ -17,7 +17,7 @@ export default class PhotoItem extends React.PureComponent{
 
       
           
-            <img src={this.props.photoImageSrc} className={s.post_img}></img>
+            <img src={`${window.location.protocol}//${window.location.hostname}/${this.props.photoImageSrc}`} className={s.post_img}></img>
         <button title="удалить фото" className={s.delete__button } onClick={()=>this.props.deletePhotoById(this.props.id)}></button>
         <div className={s.comment} >{this.props.photoComment}</div></div>
         

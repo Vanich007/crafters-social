@@ -7,10 +7,11 @@ const ObjectId = require('mongodb').ObjectId;
 
 module.exports.getProtoByUserId = async function (req, res) {
     
-    const id = req.query.userId
-    if(id===undefined) return null
-    let o_id = new ObjectId(id);
-    try {        const photos = await Photos.find({    //req.params.id - id страницы со списком сообщений
+   
+    try { const id = req.query.userId
+    if (!id || id.length !== 24) throw 'bad id'
+    let o_id = new ObjectId(id); 
+           const photos = await Photos.find({    //req.params.id - id страницы со списком сообщений
                 user:o_id
         }).sort({ date: -1 })
         .skip(+req.query.offset)

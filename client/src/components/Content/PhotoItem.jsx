@@ -15,7 +15,7 @@ export class PhotoItem extends React.PureComponent{
       <div className={s.date}>{this.props.date}</div>  
       <div className={s.photo} >
 
-        <img src={this.props.photoImageSrc} className={s.prew_img}></img>
+        <img src={`${window.location.protocol}//${window.location.hostname}/${this.props.photoImageSrc}`} className={s.prew_img}></img>
            <div style={divStyle}> 
      </div></div>
         <div className={s.post_body} >{this.props.photoComment}</div>

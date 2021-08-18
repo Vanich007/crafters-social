@@ -1,10 +1,10 @@
-import { onGetSearchedTags, onAddTag } from '../../reducers/tagsReducer'
+﻿import { onGetSearchedTags, onAddTag } from '../../reducers/tagsReducer'
 import {onGetPosts} from  '../../reducers/profileReducer'
 
 
 export const getPostsByTag =tag => {
     return dispatch => {
-      let url=  `http://localhost:5000/api/posts/tag/?tag=${tag}`
+      let url=  `/api/posts/tag/?tag=${tag}`
       return fetch(url, {
         method: "GET",
         headers: {
@@ -26,7 +26,7 @@ export const getPostsByTag =tag => {
 
 export const searchTagsBySubstring =searchWord => {
     return dispatch => {
-      let url=  "http://localhost:5000/api/tags?search="+searchWord
+      let url=  "/api/tags?search="+searchWord
       return fetch(url, {
         method: "GET",
         headers: {
@@ -50,7 +50,7 @@ export const searchTagsBySubstring =searchWord => {
 
 export const saveTag = tagBody => {
     return dispatch => {
-      return fetch("http://localhost:5000/api/tags", {
+      return fetch("/api/tags", {
         method: "POST",
         headers: {
           'Authorization':localStorage.token

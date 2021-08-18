@@ -30,3 +30,11 @@
   width: 100%;
   min-height: 100px;
 }
+@media(max-width: 900px){
+.Main{
+  flex-direction: column-reverse;
+}
+.Nav{
+  width:100%;
+}
+}

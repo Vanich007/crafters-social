@@ -342,14 +342,14 @@ textarea{
     
 }
 .publish__button{
-  background: #337ab7 no-repeat url('http://localhost:3000/images/publish.png');
+  background: #337ab7 no-repeat url('https://craftt.ru/images/publish.png');
   background-position: center;
   padding:0 20px;
     /* height: 30px; */
   color:#fff;
 }
 .add__button{
-  background: #337ab7 no-repeat url('http://localhost:3000/images/add_circle.png');
+  background: #337ab7 no-repeat url('https://craftt.ru/images/add_circle.png');
   background-position: center;
   padding:0 20px;
     height: 30px;
@@ -359,7 +359,7 @@ textarea{
   color:#fff;
 }
 .attach__button{
-  background: #337ab7 no-repeat url('http://localhost:3000/images/attach.png');
+  background: #337ab7 no-repeat url('https://craftt.ru/images/attach.png');
   background-position: center;
   padding:0 20px;
     height: 30px;
@@ -369,7 +369,7 @@ textarea{
   color:#fff;
 }
 .edit__button{
-  background: #337ab7 no-repeat url('http://localhost:3000/images/edit.png');
+  background: #337ab7 no-repeat url('https://craftt.ru/images/edit.png');
   background-position: center;
   padding:0 20px;
     height: 30px;

@@ -52,7 +52,7 @@ useEffect(()=>{const userId = props.match.params.userId;
      })
     let userId=props.selectedUser?props.selectedUser._id:''
    
-    return (<div><ShowProfile follow={props.follow} unfollow={props.unfollow}
+    return (<div><ShowProfile followMass={props.followMass} currentUser={props.currentUser} follow={props.follow} unfollow={props.unfollow}
       selectedUserProfile={props.selectedUserProfile} getSelectedUserProfileByUserId={props.getSelectedUserProfileByUserId}
     userMessageSend={props.userMessageSend} selectedUser={props.selectedUser} />
  
@@ -68,12 +68,13 @@ useEffect(()=>{const userId = props.match.params.userId;
 
 
  const mapStateToProps = (state) => {
-    return {
+   return {
+      followMass: state.profilePage.follow,
       selectedUser: state.usersPage.selectedUser,
       selectedUserPhotos: state.usersPage.selectedUserPhotos,
       selectedUserProfile:state.usersPage.selectedUserProfile,
       selectedUserPosts: state.usersPage.selectedUserPosts,
-    follow:state.profilePage.follow,
+    //follow:state.profilePage.follow,
     currentUser: state.signupPage.currentUser
     
     }

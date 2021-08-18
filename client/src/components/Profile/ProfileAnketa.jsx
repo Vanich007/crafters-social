@@ -12,7 +12,7 @@ import ImageUpload from '../common/UploadImage'
 export function ProfileAnketa({getProfileByUserId,userProfileSend,currentUser, profileId, profileImageSrc,
   date, status = 'No status', livingPlace, publicName, updateProfile }) {
    let [modalActive,setModalActive]=useState(true)
-  
+  console.log('profileImageSrc',profileImageSrc)
   
   let [changeAvatar,toggleChangeAvatar]=useState(false)
   let [statusState, setStatusState] = useState(status)
@@ -61,10 +61,10 @@ export function ProfileAnketa({getProfileByUserId,userProfileSend,currentUser, p
   userProfileSend(formData)
   }
 
-if(!profileImageSrc){profileImageSrc= '/uploads/images/guestavatar.gif'}
+if(!profileImageSrc){profileImageSrc= `images/guestavatar.gif`}
 
 const onAddProfilePhoto=(filename)=>{
-const formData = new FormData();
+const formData = new FormData()
 let image:File
 image= filename
 formData.append('image', image, image.name)

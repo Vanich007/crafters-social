@@ -24,7 +24,7 @@ export default function Posts (props){
 
   const userPostSend = user => {
     
-      return fetch("http://localhost:5000/api/posts", {
+      return fetch("/api/posts", {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',

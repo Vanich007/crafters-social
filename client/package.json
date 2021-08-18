@@ -6,15 +6,22 @@
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.6.3",
+    "@types/jest": "^27.0.1",
+    "@types/node": "^16.6.1",
+    "@types/react": "^17.0.18",
+    "@types/react-dom": "^17.0.9",
+    "bootstrap": "^5.0.2",
     "react": "^17.0.1",
+    "react-bootstrap": "^2.0.0-beta.4",
     "react-dom": "^17.0.1",
+    "react-redux": "^7.2.2",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.2",
     "redux": "^4.0.5",
-    "web-vitals": "^1.1.0",
-    "react-redux": "^7.2.2",
+    "redux-form": "^8.3.7",
     "redux-thunk": "^2.3.0",
-    "redux-form": "^8.3.7"
+    "typescript": "^4.3.5",
+    "web-vitals": "^1.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -22,14 +29,6 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
- // "proxy":"http://localhost:5000",
->>>>>>> 68954e7cff91159983c57a96935efa2397f4ccbf
-=======
-
->>>>>>> ebe71b8bcd4eacba61ebd7e1bca170734e24b49c
   "eslintConfig": {
     "extends": [
       "react-app",

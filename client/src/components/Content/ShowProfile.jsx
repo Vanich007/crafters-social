@@ -2,16 +2,18 @@ import React, {useState,useEffect} from 'react';
 import s from './ShowProfile.module.css'
 import SendMessage from './SendMessage';
 import Modal from '../common/Modal'
-import {Redirect} from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
+
 
 
 
 export default function ProfileAnketa({ selectedUserProfile, ...props }) {
-  
+  console.log('ProfileAnketa props',props)
   useEffect(()=>{props.getSelectedUserProfileByUserId(props.selectedUser)},[props.selectedUser])
   let [modalActive,setModalActive]=useState(true)
   let [sendMessageState, setSendMessage] = useState(false)
-  let [followState, ToggleFollow] = useState(false)   //есть ли связь follow
+  
+  let [followState, ToggleFollow] = useState(props.followMass.length&&props.followMass.indexOf(props.selectedUser)>0 ? true:false)   //есть ли связь follow
   const setToggleFollow = () => {
     if (followState) { ToggleFollow(false); props.unfollow(props.selectedUser) }
     
@@ -22,7 +24,7 @@ export default function ProfileAnketa({ selectedUserProfile, ...props }) {
   
   return (<div className={s.anketablock}>
           <div className={s.avatarplace}>       
-      <img src={(profileImageSrc?profileImageSrc:'/uploads/images/guestavatar.gif')} className={s.avatar}></img>
+          <img src={ (profileImageSrc?`${window.location.protocol}//${window.location.hostname}/${profileImageSrc}`:`${window.location.protocol}//${window.location.hostname}/images/guestavatar.gif`)} className={s.avatar}></img>
     
     </div> 
    

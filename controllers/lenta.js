@@ -31,6 +31,7 @@ module.exports.getPosts = async function (req, res) {
         const user=req.user.id
     let  search = {  }
     //let user=''
+        if(!user||user.length!==24) throw 'bad id'
     const o_id=new ObjectId(user)
     if (user&&user!=='undefined')
     {
@@ -66,7 +67,7 @@ const follow=profile.follow.filter(item=>!!item).map(item=>{
         //console.log('posts2 length',Posts2.length)
 
         res.status(200).json([...Posts2,...posts])
-       for (i of posts) { createLentaReadedPosts(user, i._id) }
+       for (i of posts) { await createLentaReadedPosts(user, i._id) }
         
         
     } catch (e) {
@@ -95,13 +96,11 @@ const createLentaReadedPosts = async function (user, post) {
 }
 
 module.exports.createLentaInterestTags = async function (user,tags) {
-    console.log('createLentaInterestTags',user,tags)
+    // console.log('createLentaInterestTags', user, tags)
+  
+        try {  if(!user||user.length!==24)throw 'bad id'
     let o_id = new ObjectId(user)
-       
-                   
-        
-        const updated = {interestTags:tags}
-        try {
+      const updated = {interestTags:tags}
             // const updProfile = await Profile.updateOne(
             //     {user: o_id},
             //     {$push: updated},

@@ -1,8 +1,8 @@
-import { onSendMessage,onGetMessages,onGetDialogs,onDeleteMessageById} from '../../reducers/dialogsReducer'
+﻿import { onSendMessage,onGetMessages,onGetDialogs,onDeleteMessageById} from '../../reducers/dialogsReducer'
 
 export function userMessageSend(file,userId) {
   return dispatch => { 
-    let url= "http://localhost:5000/api/messages/"+userId
+    let url= "/api/messages/"+userId
     return fetch(url, {
       method: "POST",
       headers: {
@@ -27,7 +27,7 @@ export function userMessageSend(file,userId) {
 
   export function getDialogsByUserId  () {    //диалоги по текущему пользователю
     return dispatch => {
-      return fetch('http://localhost:5000/api/dialogs', {
+      return fetch('/api/dialogs', {
         method: "GET",
         headers: {
           'Content-Type': 'application/json',
@@ -49,7 +49,7 @@ export function userMessageSend(file,userId) {
 
 export function getМessagesByUserId  (targetUserId) {   //сообщения по targetUser
   return dispatch => {
-    const url=`http://localhost:5000/api/messages/?userId=${targetUserId}`
+    const url=`/api/messages/?userId=${targetUserId}`
     return fetch(url, {
       method: "GET",
       headers: {
@@ -72,7 +72,7 @@ export function getМessagesByUserId  (targetUserId) {   //сообщения п
 
 // export function getMessageByMessageId  (id) {
 //   return dispatch => {
-//     const url=`http://localhost:5000/api/messages/?userId=${id}`
+//     const url=`/api/messages/?userId=${id}`
 //     return fetch(url, {
 //       method: "GET",
 //       headers: {
@@ -96,7 +96,7 @@ export function getМessagesByUserId  (targetUserId) {   //сообщения п
    
   export const deletePhotoById = photoId => {
     return dispatch => {
-      let url=  "http://localhost:5000/api/photo/"+photoId
+      let url=  "/api/photo/"+photoId
       
       return fetch(url, {
         method: "DELETE",

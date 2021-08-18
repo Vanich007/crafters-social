@@ -32,7 +32,7 @@ class Photos extends React.Component{
 
   render() {
     
-    
+    console.log('this.props',this.props)
     let photos = this.props.photos.map(item => {
       //const deleteItem=this.props.deletePhotoById(item._id)
       let comment=''
@@ -43,7 +43,7 @@ class Photos extends React.Component{
     })
     
     return (<div><h1>Загруженные фото:</h1>
-      {this.props.ProfileId === this.props.currentUser ? (<AddPhotoContainer />) : ('')}
+      <AddPhotoContainer />
       {/* <AddPhotoContainer /> */}
       <ul>{photos}</ul> 
      

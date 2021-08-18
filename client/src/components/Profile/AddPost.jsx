@@ -5,7 +5,7 @@ import s from './AddPost.module.css'
 import { sendUserPost,updateUserPost } from '../../utils/API/connectPosts'
 import {searchTagsBySubstring,saveTag} from '../../utils/API/connectTags'
 //import Modal from '../common/Modal'
-import PostImageUpload from '../common/UploadImage'
+import PostImageUpload from '../common/UploadImagePost'
 import Modal from '../common/Modal'
 
 export function AddPost(props) {

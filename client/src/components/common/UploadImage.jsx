@@ -1,11 +1,11 @@
 import React,{useRef,useEffect,useState} from 'react'
 import s from './UploadImage.module.css'
 
-const ImageUpload = ({onAddPostPhoto,onAddProfilePhoto,...props }) => {
+const ImageUpload = ({onAddProfilePhoto,...props }) => {
 
   let [fileState, setFileState] = useState('')
   let [imagePreviewUrl,setImagePreviewUrl]=useState('')
- 
+ let [loadedImagePreviewUrl,setLoadedImagePreviewUrl]=useState('')
      let inputRef = useRef(null)
 
 
@@ -27,10 +27,11 @@ const ImageUpload = ({onAddPostPhoto,onAddProfilePhoto,...props }) => {
     let file = e.target.files[0];
     reader.onloadend = () => {
       setFileState(file)
-      setImagePreviewUrl(reader.result)
-      
-      if(onAddPostPhoto){onAddPostPhoto(file) ;      }
-      if(onAddProfilePhoto){onAddProfilePhoto(file);}
+      setLoadedImagePreviewUrl(reader.result)
+
+      console.log('onAddProfilePhoto',onAddProfilePhoto)
+   
+     onAddProfilePhoto(file);
       // });
     }
 
@@ -40,9 +41,13 @@ const ImageUpload = ({onAddPostPhoto,onAddProfilePhoto,...props }) => {
   
     
     let $imagePreview = null;
+    if (loadedImagePreviewUrl) {
+      $imagePreview = (<img src={loadedImagePreviewUrl} />);
+    } else 
     if (imagePreviewUrl) {
-      $imagePreview = (<img src={imagePreviewUrl} />);
-    } else {
+      $imagePreview = (<img src={`${window.location.protocol}//${window.location.hostname}/${imagePreviewUrl}`} />);
+    }else
+    {
       $imagePreview = (<div className="previewText">Картинка не выбрана</div>);
     }
 

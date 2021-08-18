@@ -10,5 +10,5 @@ router.delete('/:id', passport.authenticate('jwt',{session:false}),controller.re
 router.post('/', passport.authenticate('jwt',{session:false}),upload.single('image'), controller.create)  
 router.patch('/', passport.authenticate('jwt', { session: false }), upload.single('image'), controller.update)  
 router.patch('/follow/:userId', passport.authenticate('jwt', { session: false }), controller.follow)  
-router.delete('/follow/:userId', passport.authenticate('jwt', { session: false }), controller.unfollow)
+router.delete('/unfollow/:userId', passport.authenticate('jwt', { session: false }), controller.unfollow)
 module.exports=router

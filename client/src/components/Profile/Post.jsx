@@ -90,7 +90,9 @@ export function ReadMore(props) {
     
     
        <div className="meta">
-            <div className="photo" id={props.id} style={{backgroundImage:'url('+props.postImageSrc+')'}}></div>
+            <div className="photo" id={props.id} 
+            style={{backgroundImage:`url(${window.location.protocol}//${window.location.hostname}/${props.postImageSrc})`
+            }}></div>
       <ul className="details">
         {props.selectedUserProfile?<li className="author"><a href="/users/userId">{props.selectedUserProfile.publicName}</a></li> : ''}
         <li className="date">{props.date}</li>
@@ -171,7 +173,8 @@ if(props.postComments) comments = props.postComments.filter(item=>item.postId===
    return (<li key={item._id}><div className='blog-card'>
             <div className={s.user}> 
             <div className={s.avatarplace}>   
-            <img src={ (item.profileImageSrc?item.profileImageSrc:'/uploads/images/guestavatar.gif')} className={s.avatar}></img>    
+            <img src={ (item.profileImageSrc?`${window.location.protocol}//${window.location.hostname}/${item.profileImageSrc}`:`${window.location.protocol}//${window.location.hostname}/images/guestavatar.gif`)} className={s.avatar}></img>  
+            
       </div> 
     </div>
             <div className={s.messagearea}>
@@ -196,7 +199,7 @@ if(props.postComments) comments = props.postComments.filter(item=>item.postId===
   
   return (<div className="blog-card-full">
     
-    <img className="blog-card-full-image" src={props.postImageSrc}></img>
+    <img className="blog-card-full-image" src={`${window.location.protocol}//${window.location.hostname}/${props.postImageSrc}`}></img>
     <div className='descrtextfull'>
     <div className={s.post_username}>
  <Link to={'/users/'+props.user }><b>Автор: {props.publicName}</b></Link>

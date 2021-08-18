@@ -1,4 +1,4 @@
-import s from './Footer.module.css';
+﻿import s from './Footer.module.css';
 
 
 function Footer(props) {
@@ -7,7 +7,7 @@ function Footer(props) {
       
         <li>&copy;2021</li>
         <li>Автор проекта - Ремезов Иван</li>
-        <li><a href="mailto:admin@craftersocial.com">admin@craftersocial.com</a></li>
+        <li><a href="mailto:admin@craftt.com">admin@craftt.com</a></li>
       
       
       </footer>

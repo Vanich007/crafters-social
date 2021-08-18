@@ -47,7 +47,7 @@ res.status(401).json({message:'Пароли не совпадают'})
 
 module.exports.register=async function(req, res) {
   
-  
+  //console.log(req.body)
   const candidate=await User.findOne({email:req.body.email})
   if (candidate) {
     //email есть в базе
@@ -57,6 +57,7 @@ module.exports.register=async function(req, res) {
     //создаем пользователя
      const salt = bcrypt.genSaltSync(10)
     const password = req.body.password
+    //console.log('password=',password,'salt=',salt)
     const hasProfile=false
      const user = new User({
        email: req.body.email,
