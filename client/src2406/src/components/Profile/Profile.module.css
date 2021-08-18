@@ -1,0 +1,34 @@
+.header{
+    display: flex;
+    flex-direction: row;
+    /* justify-content:start ; */
+    background-color:#fff;
+    color: #195588    ;
+    width: 100%;
+    font-size: large;
+    font-weight: bold;
+
+}
+.profile__top{
+  position: relative;
+}
+.add_post_button{
+  background: #337ab7 no-repeat url('http://localhost:3000/images/post_add.png');
+  background-position: center;
+  padding:0 20px;
+  width: 70px;
+  height: 70px;
+  color:#fff;
+  margin-left: 15px;
+float:left;
+border-radius: 50%;
+position:fixed;
+bottom: 30px;
+right:50px;
+opacity: .7;
+z-index: 5;
+}
+.add_post_button:hover{
+  opacity: 1;
+  box-shadow: 0 0 5px 3px rgba(37, 52, 134, 0.2);
+}

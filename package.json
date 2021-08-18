@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": "10.23.2",
+    "npm": "6.14.10"
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
@@ -23,10 +27,18 @@
   },
   "scripts": {
     "server": "nodemon index",
+<<<<<<< HEAD
     "start": "node index",
     "client-install": "npm install --prefix client",
     "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
+=======
+    "start": "node index.js",
+    "client-install": "npm install --prefix client",
+    "client": "npm run start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm run client-install && npm run build --prefix client"
+>>>>>>> 2f5398d0629834e85587df0039f2cfe2479b760a
   },
   "author": "",
   "license": "ISC"

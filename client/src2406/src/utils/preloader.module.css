@@ -1,0 +1,19 @@
+.preloader div {
+
+    border: 14px inset #FFF;
+
+    border-radius: 100%;
+
+    padding: 4px;
+
+    animation: preloader-spin 15s linear infinite;
+
+}
+
+@keyframes preloader-spin {
+
+    from { transform: rotate(0deg) }
+
+    to { transform: rotate(360deg) }
+
+}

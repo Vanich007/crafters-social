@@ -1,0 +1,98 @@
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    max-width: 700px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 13px;
+	line-height: 18px;
+    color: #333;
+}
+.photo{
+  position: relative;
+}
+
+
+.post_img{
+        border-radius: 2px;
+        margin-left: 10px;
+        width:auto;
+        height:auto;
+}
+
+.date{
+  position: absolute;
+  top:20px;
+  left: 20px;
+    display: block;
+    color:grey;
+    align: right;
+    
+}
+
+.name hover{
+text-decoration: underline;    
+color: rgb(34, 34, 56);
+display: flex;
+flex-direction: column;
+justify-content: center;
+}
+
+/* .user{
+    font-size: 1.2em;
+    color: rgb(68, 127, 238);
+    text-transform:none;
+    font: lighter;   
+    padding: 5px; 
+    align:left;
+} */
+
+  .like__button{
+    background: #337ab7 no-repeat url('http://localhost:3000/images/like.png');
+    background-position: center;
+    padding:0 20px;
+    /* width: 50px; */
+    height: 30px;
+    color:#fff;
+    margin-left: 15px;
+  float:left;
+  opacity: .3;
+  }
+  .like__button_active{
+    background: #337ab7 no-repeat url('http://localhost:3000/images/like.png');
+    background-position: center;
+    padding:0 20px;
+    /* width: 50px; */
+    height: 30px;
+    color:#fff;
+    margin-left: 15px;
+  float:left;
+  opacity: 1;
+  }
+  .delete__button{
+    position: absolute;
+    right:10px;
+    top:10px;
+    background: #337ab7 no-repeat url('http://localhost:3000/images/delete.png');
+    background-position: center;
+    padding:0 20px;
+    /* width: 50px; */
+    height: 30px;
+    color:#fff;
+    margin-left: 15px;
+  opacity: 0.4;
+  }
+    .delete__button:hover{
+      opacity: 1;
+    }
+    .comment{
+    position: absolute;
+    left:20px;
+    bottom:10px;
+    font-size: 1.3em;
+    width: 100%;
+    opacity: .7;
+    }
+      .comment:hover{
+      opacity: 1;
+    }

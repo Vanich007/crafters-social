@@ -1,0 +1,6 @@
+.avatarplace{
+  width:70px;
+  height: 70px;
+  display: flex;
+  border-radius: 50%;
+}

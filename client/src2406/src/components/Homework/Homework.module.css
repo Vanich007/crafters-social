@@ -1,0 +1,40 @@
+.header{
+    color:rgb(25, 25, 56);
+    /* background-color: rgb(174, 222, 245); */
+}
+.table{
+display: flex;
+flex-direction: column;
+}
+
+
+.tableitem{
+display: flex;
+flex-direction: column;
+background-color: cornsilk;
+}
+.tableitemheader{
+background-color: khaki;
+}
+.tableitembody{
+    position: relative;
+
+}
+.lesson{
+    
+}
+.lessonhomework{
+padding: 15px 3px 3px;
+}
+.lessonname{
+    position: absolute;
+left:0;
+right:0;
+    float:left;
+    font-size: 0.8em;
+    text-transform: capitalize ;
+}
+.homework{
+    text-transform: capitalize;
+    padding: 0 10ps;
+}
